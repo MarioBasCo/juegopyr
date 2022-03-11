@@ -1,0 +1,125 @@
+<app-header titulo="Dashboard"></app-header>
+
+<ion-content class="ion-padding">
+  <div class="container-fluid">
+    <div class="row g-6 mb-6">
+      <div class="col-xl-3 col-sm-6 col-12 mb-3">
+        <div class="card shadow border-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <span class="h6 font-semibold text-muted text-sm d-block mb-2">
+                  Cuestionarios
+                </span>
+                <span class="h3 font-bold mb-0">9</span>
+              </div>
+              <div class="col-auto">
+                <ion-icon name="help" color="rose" size="large"></ion-icon>
+              </div>
+            </div>
+            <div class="mt-2 mb-0 text-sm">
+              <span class="text-nowrap text-xs text-muted">Cuestionarios Creados</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-3">
+        <div class="card shadow border-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <span class="h6 font-semibold text-muted text-sm d-block mb-2">Jugadores</span>
+                <span class="h3 font-bold mb-0">215</span>
+              </div>
+              <div class="col-auto">
+                <div class="col-auto">
+                  <ion-icon name="people" color="success" size="large"></ion-icon>
+                </div>
+              </div>
+            </div>
+            <div class="mt-2 mb-0 text-sm">
+              <span class="text-nowrap text-xs text-muted">
+                Cuestionarios Resueltos
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-3">
+        <div class="card shadow border-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <span class="h6 font-semibold text-muted text-sm d-block mb-2">
+                  Total hours
+                </span>
+                <span class="h3 font-bold mb-0">1.400</span>
+              </div>
+              <div class="col-auto">
+                <ion-icon name="school" color="ocean" size="large"></ion-icon>
+              </div>
+            </div>
+            <div class="mt-2 mb-0 text-sm">
+              <span class="text-nowrap text-xs text-muted">Since last month</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-3">
+        <div class="card shadow border-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col"> <span class="h6 font-semibold text-muted text-sm d-block mb-2">Work
+                  load</span> <span class="h3 font-bold mb-0">95%</span> </div>
+              <div class="col-auto">
+                <ion-icon name="medal" color="sun" size="large"></ion-icon>
+              </div>
+            </div>
+            <div class="mt-2 mb-0 text-sm">
+              <span class="text-nowrap text-xs text-muted">Since last month</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-lg-6 mb-3">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Estadística de Aprendizaje</h5>
+          </div>
+          <div class="card-body">
+            <div width="300" height="300">
+              <canvas id="canvas">{{chart}}</canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mb-3">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Resumen de Promedios</h5>
+          </div>
+          <div class="card-body">
+            <div width="300" height="300">
+              <canvas id="bar">{{promedios}}</canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <div class="ion-text-center ion-padding">
+      &copy; {{ factual | date: 'yyyy'}}, TORRES AVELINO GILSON DAVID
+    </div>
+  </ion-toolbar>
+</ion-footer>

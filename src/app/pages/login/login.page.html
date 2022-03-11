@@ -1,0 +1,63 @@
+<ion-header class="ion-no-border">
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-fab vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button size="small" color="ocean" routerLink="/home">
+      <ion-icon size="large" name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-lg="4" size-md="6" size-sm="12">
+        <div class="login-container">
+          <div class="registro ion-text-end">
+            <a routerLink="/singup">Regístrate</a>
+          </div>
+          <h1 class="title">Login</h1>
+          <form [formGroup]="loginForm" class="form-lg" (ngSubmit)="ingresar()">
+            <div class="ion-margin-bottom" style="width: 100%;">
+              <ion-item lines="none">
+                <!-- <ion-label position="floating">Usuario:</ion-label> -->
+                <ion-input type="mail" placeholder="Correo electrónico" formControlName="correo">
+                </ion-input>
+              </ion-item>
+              <div class="text-danger text-start">
+                <small *ngIf="loginForm.get('correo')?.hasError('required') && loginForm.get('correo').touched">
+                  <p class="error"> *Por favor ingrese su correo</p>
+                </small>
+                <small *ngIf="loginForm.get('correo')?.hasError('email') || loginForm.get('correo')?.hasError('pattern')">
+                  <p class="error">* No parece un correo valido</p>
+                </small>
+              </div>
+            </div>
+            
+
+            <div class="ion-margin-bottom" style="width: 100%;">
+              <ion-item lines="none">
+                <!-- <ion-label position="floating">Contraseña:</ion-label> -->
+                <ion-input type="password" placeholder="Contraseña" formControlName="clave">
+                </ion-input>
+              </ion-item>
+              <div class="text-danger text-start">
+                <small *ngIf="loginForm.get('clave')?.hasError('required') && loginForm.get('clave').touched">
+                  <p class="error">* Por favor ingrese su contraseña</p>
+                </small>
+              </div>
+            </div>
+            
+            <ion-button type="submit" class="btn-form" color="success" [disabled]="!loginForm.valid">Ingresar
+            </ion-button>
+          </form>
+
+          <div class="ion-margin-top ion-text-center">
+            <p><strong>¿Has olvidado tu contraseña?</strong> recuperarla <span class="span"><a
+                  routerLink="/login">aquí</a></span></p>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

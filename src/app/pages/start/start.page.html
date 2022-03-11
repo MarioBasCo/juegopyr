@@ -1,0 +1,43 @@
+<ion-content>
+  <ion-fab vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button size="small" color="ocean" routerLink="/home">
+      <ion-icon size="large" name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-md="12" size-sm="12" sizeLg="12">
+        <div class="contenedor">
+          <div class="img-logo">
+            <ion-img src="assets/img/logo_ue.jpg"></ion-img>
+            <h3>Unidad Educativa Huerta Rendón</h3>
+          </div>
+
+          <div style="width: 100%;">
+            <form>
+              <ion-item lines="none" class="ion-margin-vertical">
+                <!-- <ion-label>
+                  Hola
+                </ion-label> -->
+                <ion-input placeholder="Nombre de Jugador"></ion-input>
+              </ion-item>
+  
+              <ion-button class="btn-ing" expand="block" color="lime" (click)="ingresoJuego()">
+                <ion-label>EMPEZAR</ion-label>
+              </ion-button>
+            </form>
+          </div> 
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <div class="ion-text-center ion-padding">
+      &copy; {{ factual | date: 'yyyy'}}, TORRES AVELINO GILSON DAVID
+    </div>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,66 @@
+<ion-content class="ion-padding">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="text-center">
+                <h4>Datos del cuestionario</h4>
+              </div>
+            </div>
+
+            <form [formGroup]="cuestionarioForm">
+              <div class="form-group mb-3">
+                <label for="titulo" class="form-label">Titulo</label>
+                <input type="text" formControlName="titulo" class="form-control" id="titulo" placeholder="Titulo">
+                <div class="text-danger" *ngIf="tituloField?.hasError('required') && tituloField?.touched">
+                  <span>
+                    * El campo titulo <strong>es requerido</strong>
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea rows="3" formControlName="descripcion" class="form-control" id="descripcion"
+                placeholder="Descripción"></textarea>
+                <div class="text-danger" *ngIf="descripcionField?.hasError('required') && descripcionField?.touched">
+                  <span>
+                    * El campo de descripción <strong>es requerido</strong>
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="fecha_disp" class="form-label">Fecha Limite de Resolución</label>
+                <input type="date" formControlName="fecha_disp" max="9999-12-31" class="form-control" id="fecha_disp">
+                <div class="text-danger" *ngIf="fechaDispField?.hasError('required') && fechaDispField?.touched">
+                  <span>
+                    * El campo de fecha <strong>es requerido</strong>
+                  </span>
+                </div>
+              </div>
+              
+              <div class="row mt-3">
+                <div class="col-lg-6">
+                  <ion-button (click)="cancelar()" expand="block" color="danger">
+                    CANCELAR
+                  </ion-button>
+                </div>
+      
+                <div class="col-lg-6">
+                  <ion-button type="submit" (click)="siguiente()" expand="block" color="success"
+                    [disabled]="!cuestionarioForm.valid">
+                    SIGUIENTE
+                  </ion-button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</ion-content>

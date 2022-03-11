@@ -1,0 +1,116 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>singup</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+<ion-content [fullscreen]="true">
+  <ion-fab vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button size="small" color="ocean" routerLink="/login">
+      <ion-icon size="large" name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-lg="4" size-md="6" size-sm="12">
+        <div class="reg-container">
+          <div class="registro ion-text-end">
+            <a routerLink="/login">Iniciar Sesión</a>
+          </div>
+          <h1 class="title">Registro</h1>
+          <form class="form-reg" [formGroup]="regForm" (ngSubmit)="guardar()">
+            <div class="ion-margin-bottom" style="width: 100%;">
+              <div class="material-textfield">
+                <input placeholder="Nombre" type="text" formControlName="nombre">
+                <label>Nombres</label>
+              </div>
+              <div class="text-start text-danger">
+                <small  *ngIf="regForm.get('nombre')?.hasError('required') && regForm.get('nombre').touched">
+                  * Por favor ingrese los nombres
+                </small>
+                <small  *ngIf="regForm.get('nombre')?.hasError('minlength')">
+                  * Se requieren al menos 2 carácteres
+                </small>
+                <small  *ngIf="regForm.get('nombre')?.hasError('maxlength')">
+                  * El número de letras excede el requerido
+                </small>
+                <small  *ngIf="regForm.get('nombre')?.hasError('pattern')">
+                  * No se aceptan números o carácteres especiales
+                </small>
+              </div>
+            </div>
+            
+            <div class="ion-margin-bottom" style="width: 100%;">
+              <div class="material-textfield">
+                <input placeholder="Apellidos" type="text" formControlName="apellido">
+                <label>Apellidos</label>
+              </div>
+              <div class="text-start text-danger">
+                <small  *ngIf="regForm.get('apellido')?.hasError('required') && regForm.get('apellido').touched">
+                  * Por favor ingrese los apellidos
+                </small>
+                <small  *ngIf="regForm.get('apellido')?.hasError('minlength')">
+                  * Se requieren al menos 2 carácteres
+                </small>
+                <small  *ngIf="regForm.get('apellido')?.hasError('maxlength')">
+                  * El número de letras excede el requerido
+                </small>
+                <small  *ngIf="regForm.get('apellido')?.hasError('pattern')">
+                  * No se aceptan números o carácteres especiales
+                </small>
+              </div>
+            </div>
+            
+            <div class="ion-margin-bottom" style="width: 100%;">
+              <div class="material-textfield">
+                <input type="date" formControlName="fechanaci" max="9999-12-31">
+                <label>Fecha de Nacimiento</label>
+              </div>
+              <div class="text-start text-danger">
+                <small *ngIf="regForm.get('fechanaci')?.hasError('required') && regForm.get('fechanaci').touched">* Por favor ingrese la fecha de nacimiento</small>
+                <small *ngIf="regForm.get('fechanaci')?.hasError('isOlder')">* Debe ser mayor de edad</small>
+                <small *ngIf="regForm.get('fechanaci')?.hasError('isValidYear')">* Por favor ingrese una fecha de nacimiento valida</small>
+              </div>
+            </div>
+
+            <div class="ion-margin-bottom" style="width: 100%;">
+              <div class="material-textfield">
+                <input type="email" placeholder="Correo electrónico" formControlName="correo">
+                <label>Correo electrónico</label>
+              </div>
+              <div class="text-danger text-start">
+                <small *ngIf="regForm.get('correo')?.hasError('required') && regForm.get('correo').touched">
+                  <p class="error"> *Por favor ingrese su correo</p>
+                </small>
+                <small *ngIf="regForm.get('correo')?.hasError('email') || regForm.get('correo')?.hasError('pattern')">
+                  <p class="error">* No parece un correo valido</p>
+                </small>
+              </div>
+            </div>
+
+            <div class="ion-margin-bottom" style="width: 100%;">
+              <div class="material-textfield">
+                <input type="password" placeholder="Contraseña" formControlName="clave">
+                <label>Contraseña</label>
+              </div>
+              <div class="text-start text-danger">
+                <small  *ngIf="regForm.get('clave')?.hasError('required') && regForm.get('clave').touched">
+                  * Por favor ingrese su contraseña
+                </small>
+                <small  *ngIf="regForm.get('clave')?.hasError('minlength')">
+                  * Se requieren al menos 8 carácteres
+                </small>
+              </div>
+            </div>
+
+            <ion-button type="submit" class="btn-form" color="success" [disabled]="!regForm.valid">Registrarme</ion-button>
+          </form>
+
+          <!-- <div class="ion-margin-top ion-text-center">
+            <p><strong>¿Has olvidado tu contraseña?</strong> recuperarla <span class="span"><a routerLink="/login">aquí</a></span></p>
+          </div> -->
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="primary">
+      <ion-button>
+        <ion-badge color="dark">3</ion-badge>
+        <ion-icon id="life" slot="end" name="heart-half" color="rose"></ion-icon>
+        <!-- <ion-icon id="life" slot="end" name="heart" color="rose"></ion-icon> -->
+      </ion-button>
+    </ion-buttons>
+    <ion-title>User</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="container">
+    <div class="ion-text-center">
+      <h2 class="titulo-pg">
+        Pregunta 1
+      </h2>
+    </div>
+
+    <div class="imagen">
+      <ion-img src="assets/read.png" style="width: 250px; height: 250px;"> </ion-img>
+    </div>
+
+    <ion-item>
+      <div class="pregunta ion-text-justify">
+        ¿Cuál de las siguientes opciones es un adjetivo?
+      </div>
+    </ion-item>
+
+    <ion-list>
+      <ion-radio-group>
+        <ion-list-header>
+          <ion-label class="titulo-resp">
+            Respuesta:
+          </ion-label>
+        </ion-list-header>
+  
+        <ion-item>
+          <ion-label>Susana</ion-label>
+          <ion-radio value="duesenberg"></ion-radio>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label>Brillante</ion-label>
+          <ion-radio value="hudson"></ion-radio>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label>Casa</ion-label>
+          <ion-radio value="packard"></ion-radio>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label>Árbol</ion-label>
+          <ion-radio value="studebaker"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+
+    <ion-row class="ion-margin-top ion-justify-content-center">
+      <ion-button class="btn-op" expand="block" color="success" type="submit" (click)="openModalRespuesta()">Siguiente</ion-button>
+    </ion-row>
+  </div>
+</ion-content>

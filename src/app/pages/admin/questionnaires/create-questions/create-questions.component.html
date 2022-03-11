@@ -1,0 +1,153 @@
+<ion-content class="ion-padding">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="text-center">
+                <h4>Preguntas del cuestionario</h4>
+              </div>
+            </div>
+
+            <div *ngIf="mostrarError" class="alert alert-danger text-center" role="alert">
+              POR FAVOR INGRESE TODOS LOS CAMPOS
+            </div>
+
+            <form [formGroup]="agregarPregunta" (ngSubmit)="agregarPreg()">
+              <div class="row mt-3">
+                <div class="col-12">
+                  <textarea rows="3" formControlName="pregunta" class="form-control"
+                    placeholder="Ingrese la pregunta"></textarea>
+                </div>
+                <div *ngIf="pregunta?.touched" class="text-danger">
+                  <small *ngIf="pregunta?.hasError('required')">* La Pregunta es requerida</small>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-12">
+                  <div class="input-group custom-file-button">
+                    <label class="input-group-text" for="inputGroupFile">Recurso Visual</label>
+                    <input #myInput name="imagen" type="file" class="form-control" id="inputGroupFile"
+                      (change)="imageUpload($event)">
+                  </div>
+                </div>
+                <div *ngIf="imagen?.hasError('requiredFileType')" class="text-danger">
+                  <small>Proporcione una imagen con extensión jpg o png</small>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-12 mb-3">
+                  <div formGroupName="respuesta1" class="input-group">
+                    <div class="input-group-text">
+                      <input formControlName="esCorrecta" class="form-check-input mt-0" type="checkbox" value=""
+                        aria-label="Checkbox for following text input" (click)="esCorrecta('1')">
+                    </div>
+                    <input formControlName="titulo" type="text" class="form-control"
+                      aria-label="Text input with checkbox" placeholder="Agregar respuesta 1">
+                  </div>
+                  <div *ngIf="res1Titulo?.touched" class="text-danger">
+                    <small *ngIf="res1Titulo?.hasError('required')">* La Respuesta 1 es requerida</small>
+                  </div>
+                </div>
+
+                <div class="col-12 mb-3">
+                  <div formGroupName="respuesta2" class="input-group">
+                    <div class="input-group-text">
+                      <input formControlName="esCorrecta" class="form-check-input mt-0" type="checkbox" value=""
+                        aria-label="Checkbox for following text input" (click)="esCorrecta('2')">
+                    </div>
+                    <input formControlName="titulo" type="text" class="form-control"
+                      aria-label="Text input with checkbox" placeholder="Agregar respuesta 2">
+                  </div>
+                  <div *ngIf="res2Titulo?.touched" class="text-danger">
+                    <small *ngIf="res2Titulo?.hasError('required')">* La Respuesta 2 es requerida</small>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div formGroupName="respuesta3" class="input-group mb-3">
+                    <div class="input-group-text">
+                      <input formControlName="esCorrecta" class="form-check-input mt-0" type="checkbox" value=""
+                        aria-label="Checkbox for following text input" (click)="esCorrecta('3')">
+                    </div>
+                    <input formControlName="titulo" type="text" class="form-control"
+                      aria-label="Text input with checkbox" placeholder="Agregar respuesta 3 (opcional)">
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div formGroupName="respuesta4" class="input-group mb-3">
+                    <div class="input-group-text">
+                      <input formControlName="esCorrecta" class="form-check-input mt-0" type="checkbox" value=""
+                        aria-label="Checkbox for following text input" (click)="esCorrecta('4')">
+                    </div>
+                    <input formControlName="titulo" type="text" class="form-control"
+                      aria-label="Text input with checkbox" placeholder="Agregar respuesta 4 (opcional)">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-12 text-center">
+                  <ion-button type="submit" expand="block" color="success">
+                    AGREGAR PREGUNTA
+                  </ion-button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="text-center">
+              <h5>{{titulo}}</h5>
+            </div>
+            <label>Descripción</label><br>
+            <label>{{descripcion}}</label><br><br>
+            <label>Fecha Límite</label><br>
+            <label>{{fecha_disp | date: 'dd-MM-yyyy'}}</label><br>
+          </div>
+        </div>
+
+        <div class="card" *ngFor="let item of listPreguntas; index as i">
+          <div class="card-body" >
+            <div class="ion-text-center">
+              <h2 class="titulo-pg">
+                Pregunta {{i+1}}
+              </h2>
+            </div>
+
+            <div class="imagen" *ngIf="item.img">
+              <ion-img [src]="url+item.img" style="width: 250px; height: 250px;"> </ion-img>
+            </div>
+
+            <ion-item>
+              <div class="pregunta ion-text-justify">
+                <h5>{{item.titulo}}</h5>
+              </div>
+            </ion-item>
+
+            <ion-list>
+              <ion-list-header>
+                <ion-label class="titulo-resp">
+                  Respuesta:
+                </ion-label>
+              </ion-list-header>
+
+              <ion-item *ngFor="let radio of item.respuestas" lines="none">
+                <ion-label>{{radio.descripcion}}</ion-label>
+                <ion-checkbox color="lime" slot="start" mode="ios" [checked]="radio.valor" disabled="true"></ion-checkbox>
+              </ion-item>
+            </ion-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

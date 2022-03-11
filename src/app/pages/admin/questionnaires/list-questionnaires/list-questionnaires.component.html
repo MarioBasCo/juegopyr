@@ -1,0 +1,48 @@
+<div class="container">
+
+  <div class="row mt-3">
+    <div class="col-lg-10 offset-lg-1">
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <div class="text-center">
+            <strong class="text-dark titulo"> Listado de Cuestionarios</strong>
+            <ion-button class="float-end" color="ocean"  routerLink="quizz">NUEVO</ion-button>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr class="table-dark">
+              <th scope="col" class="text-center">#</th>
+              <th scope="col" class="text-center">Titulo</th>
+              <th scope="col" class="text-center">Cant. Preguntas</th>
+              <th scope="col" class="text-center">Código</th>
+              <th scope="col" class="text-center">Disponible Hasta</th>
+              <th scope="col" class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of cuestionarios; index as i">
+              <th scope="row" class="text-end">{{i+1}}</th>
+              <td>{{item.titulo}}</td>
+              <td class="text-center">{{item.preg}}</td>
+              <td class="text-center">{{item.codigo}}</td>
+              <td class="text-center">{{item.codigo}}</td>
+              <td class="text-center">
+                <div class="actions">
+                  <ion-icon style="font-size: 20px;" name="eye" color="medium"
+                    [routerLink]="['/questionnaires/questionnaire', item.codigo]"></ion-icon>
+                  <ion-icon style="font-size: 20px;" name="create" color="ocean"></ion-icon>
+                  <ion-icon style="font-size: 20px;" name="trash" color="rose" (click)="confirmBox()"></ion-icon>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+  
