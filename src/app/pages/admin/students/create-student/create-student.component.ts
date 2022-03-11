@@ -1,4 +1,7 @@
-import { AlertController } from '@ionic/angular';
+import { PlayerService } from './../../../../services/player.service';
+import { LstorageService } from './../../../../services/lstorage.service';
+import { GroupService } from './../../../../services/group.service';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -13,8 +16,16 @@ import { OnExit } from 'src/app/guards/exit.guard';
 })
 export class CreateStudentComponent implements OnInit, OnExit {
   studentForm: FormGroup;
+  grupos: any[] = [];
 
-  constructor(private fb: FormBuilder, private router: Router, private alertCtrl: AlertController) { 
+  constructor(
+    private fb: FormBuilder, 
+    private router: Router, 
+    private alertCtrl: AlertController,
+    private serStorage: LstorageService,
+    private serPlayer: PlayerService,
+    private toast: ToastController,
+    private serGroup: GroupService) { 
     this.buildForm();
   }
 
@@ -56,7 +67,15 @@ export class CreateStudentComponent implements OnInit, OnExit {
     } 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    const { userId } = this.serStorage.get('user');
+    this.serGroup.getGrupos(userId).subscribe(
+      resp => {
+        console.log(resp);
+        this.grupos = resp;
+      }
+    )
+  }
 
   buildForm() {
     this.studentForm = this.fb.group({
@@ -88,6 +107,30 @@ export class CreateStudentComponent implements OnInit, OnExit {
   }
 
   guardar() {
-
+    const data = this.studentForm.value;
+    this.serPlayer.createEstudiante(data).subscribe(
+      resp => {
+        if(resp.status == true){
+          this.showMessage(resp.message, 'success');
+          this.resetForm();
+          this.router.navigate(['admin/students']);
+        }
+      }
+    );
   }
+
+  resetForm(){
+    this.buildForm();
+    this.studentForm.reset(this.studentForm.value);
+  }
+
+  async showMessage(message: string, color: string) {
+    const toast = await this.toast.create({
+      message,
+      color,
+      duration: 2000
+    });
+    toast.present();
+  }
+
 }

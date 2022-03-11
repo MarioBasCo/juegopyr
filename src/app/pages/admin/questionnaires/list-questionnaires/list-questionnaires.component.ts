@@ -1,3 +1,6 @@
+import { Subject } from 'rxjs';
+import { LstorageService } from './../../../../services/lstorage.service';
+import { QuizzService } from './../../../../services/quizz.service';
 
 import { ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
@@ -10,34 +13,30 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 })
 export class ListQuestionnairesComponent implements OnInit {
   cuestionarios: any[] = [];
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
   testModal;
 
-  constructor(private modal: ModalController) {
-    this.cuestionarios = [
-      {
-        titulo: "Sinonimos y antonimos",
-        codigo: "1",
-        preg: "5"
-      },
-      {
-        titulo: "Tipos de Adjetivos",
-        codigo: "2",
-        preg: "5"
-      },
-      {
-        titulo: "Complementos del Predicado",
-        codigo: "3",
-        preg: "5"
-      },
-      {
-        titulo: "Pronombres",
-        codigo: "4",
-        preg: "5"
-      }
-    ];
+  constructor(private modal: ModalController, private serQuizz: QuizzService, private serStorage: LstorageService) {
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.dtOptions = {
+      pagingType: 'simple_numbers',
+      pageLength: 5,
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
+      }
+    };
+
+    const { userId } = this.serStorage.get('user');
+    this.serQuizz.getCuestionarios(userId).subscribe(
+      resp => {
+        this.cuestionarios = resp;
+        this.dtTrigger.next();
+      }
+    )
+  }
 
   save() {
     this.testModal?.toggle()

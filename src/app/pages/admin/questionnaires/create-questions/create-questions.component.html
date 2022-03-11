@@ -115,7 +115,7 @@
           </div>
         </div>
 
-        <div class="card" *ngFor="let item of listPreguntas; index as i">
+        <div class="card mb-3" *ngFor="let item of listPreguntas; index as i">
           <div class="card-body" >
             <div class="ion-text-center">
               <h2 class="titulo-pg">
@@ -129,11 +129,11 @@
 
             <ion-item>
               <div class="pregunta ion-text-justify">
-                <h5>{{item.titulo}}</h5>
+                <h6>{{item.titulo}}</h6>
               </div>
             </ion-item>
 
-            <ion-list>
+            <ion-list lines="none">
               <ion-list-header>
                 <ion-label class="titulo-resp">
                   Respuesta:
@@ -141,11 +141,15 @@
               </ion-list-header>
 
               <ion-item *ngFor="let radio of item.respuestas" lines="none">
-                <ion-label>{{radio.descripcion}}</ion-label>
+                <label>{{radio.descripcion}}</label>
                 <ion-checkbox color="lime" slot="start" mode="ios" [checked]="radio.valor" disabled="true"></ion-checkbox>
               </ion-item>
             </ion-list>
           </div>
+        </div>
+
+        <div *ngIf="listPreguntas.length > 3">
+          <ion-button color="lime" expand="block" fill="outline" (click)="finalizar()">Finalizar Cuestionario</ion-button>
         </div>
       </div>
     </div>

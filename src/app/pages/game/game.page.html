@@ -1,19 +1,58 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="primary">
+    <!-- <ion-buttons slot="primary">
       <ion-button>
         <ion-badge color="dark">3</ion-badge>
         <ion-icon id="life" slot="end" name="heart-half" color="rose"></ion-icon>
-        <!-- <ion-icon id="life" slot="end" name="heart" color="rose"></ion-icon> -->
       </ion-button>
-    </ion-buttons>
-    <ion-title>User</ion-title>
+    </ion-buttons> -->
+    <ion-title>{{player_name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <div id="container">
-    <div class="ion-text-center">
+    <div>
+      <div class="card mb-3">
+        <div class="card-body">
+          <!-- <div class="ion-text-center">
+            <h2 class="titulo-pg">
+              Pregunta {{pregunta.indice+1}}
+            </h2>
+          </div> -->
+  
+          <div class="imagen text-center" *ngIf="pregunta.img">
+            <ion-img [src]="url+pregunta.img" style="width: 250px; height: 250px;"> </ion-img>
+          </div>
+  
+          <ion-item>
+            <div class="pregunta ion-text-justify">
+              <h6>{{pregunta.titulo}}</h6>
+            </div>
+          </ion-item>
+  
+          <ion-list lines="none">
+            <ion-list-header>
+              <ion-label class="titulo-resp">
+                Respuesta:
+              </ion-label>
+            </ion-list-header>
+  
+            <ion-item *ngFor="let radio of pregunta.respuestas" lines="none">
+              <label>{{radio.descripcion}}</label>
+              <ion-checkbox color="lime" slot="start" mode="ios"></ion-checkbox>
+            </ion-item>
+          </ion-list>
+
+          <ion-row class="ion-margin-top ion-justify-content-center">
+            <ion-button class="btn-op" expand="block" color="success" type="submit" (click)="nextPregunta(pregunta.preguntaId)">Siguiente</ion-button>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- <div class="ion-text-center">
       <h2 class="titulo-pg">
         Pregunta 1
       </h2>
@@ -57,10 +96,7 @@
           <ion-radio value="studebaker"></ion-radio>
         </ion-item>
       </ion-radio-group>
-    </ion-list>
+    </ion-list> -->
 
-    <ion-row class="ion-margin-top ion-justify-content-center">
-      <ion-button class="btn-op" expand="block" color="success" type="submit" (click)="openModalRespuesta()">Siguiente</ion-button>
-    </ion-row>
   </div>
 </ion-content>

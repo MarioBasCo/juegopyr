@@ -30,12 +30,8 @@
               </div>
               <div class="form-group">
                 <label class="form-label mt-4">Seleccione el Grupo</label>
-                <select class="form-select">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                <select class="form-select" formControlName="grupoId">
+                  <option *ngFor="let opt of grupos" [value]="opt.grupoId">{{opt.nombre_grupo}}</option>
                 </select>
               </div>
 

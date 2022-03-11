@@ -1,3 +1,4 @@
+import { DataTablesModule } from 'angular-datatables';
 import { ListQuestionsComponent } from './list-questions/list-questions.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -19,6 +20,7 @@ import { CreateQuestionsComponent } from './create-questions/create-questions.co
     IonicModule,
     HeaderModule,
     ReactiveFormsModule,
+    DataTablesModule,
     QuestionnairesPageRoutingModule
   ],
   declarations: [

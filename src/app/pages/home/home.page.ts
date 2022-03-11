@@ -1,3 +1,4 @@
+import { LstorageService } from './../../services/lstorage.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,13 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
   factual = new Date();
-  
-  constructor(private router: Router) { }
+  codigo: string = '';
+
+  constructor(private router: Router, private serStorage: LstorageService) { }
 
   ngOnInit() {
   }
 
   ingresoJuego(){
+    this.serStorage.set('codigo', this.codigo);
     this.router.navigate(['/start']);
   }
 }

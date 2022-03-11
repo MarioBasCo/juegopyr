@@ -20,10 +20,10 @@
                 <!-- <ion-label>
                   Hola
                 </ion-label> -->
-                <ion-input placeholder="Nombre de Jugador"></ion-input>
+                <ion-input placeholder="Nombre de Jugador" name="player_name" [(ngModel)]="player_name"></ion-input>
               </ion-item>
   
-              <ion-button class="btn-ing" expand="block" color="lime" (click)="ingresoJuego()">
+              <ion-button class="btn-ing" expand="block" color="lime" (click)="ingresoJuego()" [disabled]="player_name.length == 0">
                 <ion-label>EMPEZAR</ion-label>
               </ion-button>
             </form>

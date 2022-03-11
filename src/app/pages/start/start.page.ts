@@ -1,3 +1,4 @@
+import { LstorageService } from './../../services/lstorage.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,12 +9,15 @@ import { Router } from '@angular/router';
 })
 export class StartPage implements OnInit {
   factual = new Date();
-  constructor(private router: Router) { }
+  player_name: string = ''; 
+
+  constructor(private router: Router, private serStorage: LstorageService) { }
 
   ngOnInit() {
   }
 
   ingresoJuego(){
+    this.serStorage.set('player_name', this.player_name);
     this.router.navigate(['/game']);
   }
 

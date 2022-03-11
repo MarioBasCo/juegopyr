@@ -1,10 +1,10 @@
+import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { environment } from './../../../../../environments/environment';
-import { StartPage } from './../../../start/start.page';
 import { QuizzService } from './../../../../services/quizz.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { requiredFileType } from 'src/app/utils/fileType';
+import { nanoid } from 'nanoid';
 
 @Component({
   selector: 'app-create-questions',
@@ -24,15 +24,15 @@ export class CreateQuestionsComponent implements OnInit {
   descripcion: string = '';
   url = 'http://localhost:4000/images/';
 
-  constructor(private serQuizz: QuizzService, private fb: FormBuilder, private router: Router) {
+  constructor(private serQuizz: QuizzService, private fb: FormBuilder, private router: Router, private toast: ToastController) {
     this.buildForm();
   }
 
   ngOnInit(): void {
     this.obtenerDatosIniciales();
-    if(!this.cuestionarioId){
+    /* if(!this.cuestionarioId){
       this.router.navigateByUrl('admin/questionnaires');
-    }
+    } */
   }
 
   obtenerDatosIniciales() {
@@ -221,4 +221,33 @@ export class CreateQuestionsComponent implements OnInit {
     );
   }
   
+
+  finalizar(){
+    const data = {
+      codigo: this.generarCodigo(),
+      num_preguntas: this.listPreguntas.length,
+      estado: 'A'
+    }
+    this.serQuizz.actualizarEstado(this.cuestionarioId, data).subscribe(
+      resp => {
+        if(resp.status == true){
+          this.showMessage('Cuestinario Creado', 'success');
+          this.router.navigateByUrl('/admin/questionnaires');
+        }
+      }
+    );
+  }
+
+  generarCodigo(): string{
+    return nanoid(6).toUpperCase();
+  }
+
+  async showMessage(message: string, color: string) {
+    const toast = await this.toast.create({
+      message,
+      color,
+      duration: 2000
+    });
+    toast.present();
+  }
 }

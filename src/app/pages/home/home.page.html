@@ -11,10 +11,10 @@
           <div style="width: 100%;">
             <form>
               <ion-item lines="none" class="ion-margin-vertical">
-                <ion-input type="text" placeholder="Código del Juego"></ion-input>
+                <ion-input type="text" placeholder="Código del Juego" [(ngModel)]="codigo" name="codigo"></ion-input>
               </ion-item>
   
-              <ion-button class="btn-ing" expand="block" color="ocean" (click)="ingresoJuego()">
+              <ion-button class="btn-ing" expand="block" color="ocean" (click)="ingresoJuego()" [disabled]="codigo.length == 0">
                 <ion-label>INGRESAR</ion-label>
               </ion-button>
               <p><strong>¿Es Docente?</strong> Cree su cuestionario <span class="span"><a routerLink="/login">aquí</a></span></p>

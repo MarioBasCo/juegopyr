@@ -11,9 +11,9 @@ export class AdminPage implements OnInit {
   constructor() { 
     this.appPages = [
       { title: 'Dashboard', url: '/admin/dashboard', icon: 'bar-chart' },
-      { title: 'Cuestionarios', url: '/admin/questionnaires', icon: 'help' },
-      { title: 'Estudiantes', url: '/admin/students', icon: 'person' },
       { title: 'Grupos', url: '/admin/groups', icon: 'people' },
+      { title: 'Estudiantes', url: '/admin/students', icon: 'person' },
+      { title: 'Cuestionarios', url: '/admin/questionnaires', icon: 'help' },
     ];
   }
 

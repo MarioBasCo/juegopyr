@@ -30,6 +30,16 @@ export class QuizzService {
     return this.pregunta$.asObservable()
   }
 
+  getCuestionarios(id: number){
+    const  URL = this.url + "cuestionarios/usuarios/"+id;
+    return this.http.get<any>(URL);
+  }
+
+  getCuestionarioByCodigo(codigo: string){
+    const  URL = this.url + "cuestionarios/search/"+codigo;
+    return this.http.get<any>(URL);
+  }
+
   crearCuestionario(data: any) {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -51,14 +61,14 @@ export class QuizzService {
     return this.http.post(URL, this.objectToFormData(data));
   }
 
-  actulizarEstado(id: number, data: any) {
+  actualizarEstado(id: number, data: any) {
     const URL = this.url + "cuestionarios/" + id;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json; charset=utf-8'
       })
     };
-    return this.http.patch(URL, data, httpOptions);
+    return this.http.patch<any>(URL, data, httpOptions);
   }
 
   getPregResp(id: number){
