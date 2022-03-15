@@ -29,7 +29,7 @@
               <td class="text-center">
                 <div class="actions">
                   <ion-icon style="font-size: 20px;" name="create" color="ocean" [routerLink]="['/admin/groups/edit-group', item.grupoId]"></ion-icon>
-                  <ion-icon style="font-size: 20px;" name="trash" color="rose" (click)="confirmBox()"></ion-icon>
+                  <ion-icon style="font-size: 20px;" name="trash" color="rose" (click)="confirmBox(item)"></ion-icon>
                 </div>
               </td>
             </tr>

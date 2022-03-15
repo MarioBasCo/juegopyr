@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./message-settings.page.scss'],
 })
 export class MessageSettingsPage implements OnInit {
-  factual = new Date();
   
   constructor() { }
 

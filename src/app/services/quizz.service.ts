@@ -35,6 +35,11 @@ export class QuizzService {
     return this.http.get<any>(URL);
   }
 
+  getCuestionario(id: number){
+    const  URL = this.url + "cuestionarios/"+id;
+    return this.http.get<any>(URL);
+  }
+
   getCuestionarioByCodigo(codigo: string){
     const  URL = this.url + "cuestionarios/search/"+codigo;
     return this.http.get<any>(URL);
@@ -69,6 +74,11 @@ export class QuizzService {
       })
     };
     return this.http.patch<any>(URL, data, httpOptions);
+  }
+
+  deleteQuizz(id: number){
+    const URL = this.url + "cuestionarios/" + id;
+    return this.http.delete<any>(URL);
   }
 
   getPregResp(id: number){

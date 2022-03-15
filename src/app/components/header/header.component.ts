@@ -15,6 +15,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {}
 
+  irAPerfil(){
+    this.router.navigateByUrl('/admin/profile');
+  }
+
   async cerrarSesion(){
     const alert = await this.alertCtrl.create({
       header: 'Cerrar Sesión',

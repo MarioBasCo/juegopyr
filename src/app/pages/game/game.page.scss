@@ -40,6 +40,11 @@ ion-toolbar {
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    ion-img {
+        min-width: 100px;
+        width: 150px;
+    }
 }
 
 .titulo-resp {
@@ -56,3 +61,6 @@ ion-toolbar {
     color: black;
 }
 
+.pregunta {
+    color: var(--ion-color-ocean) !important;
+}

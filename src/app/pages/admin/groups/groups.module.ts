@@ -1,3 +1,4 @@
+import { FooterModule } from './../../../components/footer/footer.module';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { HeaderModule } from './../../../components/header/header.module';
 import { NgModule } from '@angular/core';
@@ -18,6 +19,7 @@ import { DataTablesModule } from "angular-datatables";
     FormsModule,
     IonicModule,
     HeaderModule,
+    FooterModule,
     DataTablesModule,
     ReactiveFormsModule,
     GroupsPageRoutingModule

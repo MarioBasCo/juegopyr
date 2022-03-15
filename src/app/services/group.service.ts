@@ -7,8 +7,22 @@ import { Injectable } from '@angular/core';
 })
 export class GroupService {
   path_base = environment.webService;
+  groups: any[] = [];
 
   constructor(private http: HttpClient) { }
+
+  get listGrupos() {
+    return this.groups;
+  }
+  
+  addGrupo(item: any){
+    this.groups.push(item);
+  }
+  
+  eliminarGrupo(item: any) {
+    this.groups = this.groups.filter(std => std.grupoId != item.grupoId);
+    console.log(this.groups);
+  }
 
   getGrupos(id: number) {
     const URL = this.path_base + "grupos/usuarios/" + id;
@@ -38,5 +52,11 @@ export class GroupService {
       })
     };
     return this.http.patch<any>(URL, data, httpOptions);
+  }
+
+
+  deleteGroup(id: number){
+    const URL = this.path_base + "grupos/"+id;
+    return this.http.delete<any>(URL);
   }
 }

@@ -8,7 +8,6 @@ import { Chart, registerables } from 'chart.js';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
-  factual = new Date();
   chart: any = [];
   promedios: any = [];
 
@@ -40,7 +39,7 @@ export class DashboardPage implements OnInit {
     this.promedios = new Chart('bar', {
       type: 'pie',
       data: {
-          labels: ['No Aprobados', 'Calificación Justa', 'Aprobados'],
+          labels: ['Regular', 'Bueno', 'Muy Bueno'],
           datasets: [{
               label: '# of Votes',
               data: [5, 14, 19],

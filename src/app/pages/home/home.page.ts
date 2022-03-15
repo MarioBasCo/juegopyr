@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  factual = new Date();
   codigo: string = '';
 
   constructor(private router: Router, private serStorage: LstorageService) { }

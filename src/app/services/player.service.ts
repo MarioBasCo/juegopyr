@@ -25,4 +25,9 @@ export class PlayerService {
     const URL = this.path_base + "jugadores";
     return this.http.post<any>(URL, data, httpOptions);
   }
+
+  deletePlayer(id: number){
+    const URL = this.path_base + "jugadores/"+id;
+    return this.http.delete<any>(URL);
+  }
 }

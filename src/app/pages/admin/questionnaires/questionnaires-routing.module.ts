@@ -1,3 +1,4 @@
+import { ViewQuizzComponent } from './view-quizz/view-quizz.component';
 import { CreateQuestionsComponent } from './create-questions/create-questions.component';
 import { CreateQuizzComponent } from './create-quizz/create-quizz.component';
 import { ListQuestionnairesComponent } from './list-questionnaires/list-questionnaires.component';
@@ -14,6 +15,10 @@ const routes: Routes = [
       {
         path: '',
         component: ListQuestionnairesComponent
+      },
+      {
+        path: 'view/:id',
+        component: ViewQuizzComponent
       },
       {
         path: 'quizz', component: CreateQuizzComponent

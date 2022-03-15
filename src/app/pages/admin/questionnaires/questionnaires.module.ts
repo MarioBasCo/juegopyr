@@ -1,3 +1,5 @@
+import { ViewQuizzComponent } from './view-quizz/view-quizz.component';
+import { FooterModule } from './../../../components/footer/footer.module';
 import { DataTablesModule } from 'angular-datatables';
 import { ListQuestionsComponent } from './list-questions/list-questions.component';
 import { NgModule } from '@angular/core';
@@ -19,13 +21,15 @@ import { CreateQuestionsComponent } from './create-questions/create-questions.co
     FormsModule,
     IonicModule,
     HeaderModule,
+    FooterModule,
     ReactiveFormsModule,
     DataTablesModule,
     QuestionnairesPageRoutingModule
   ],
   declarations: [
     QuestionnairesPage, 
-    ListQuestionnairesComponent, 
+    ListQuestionnairesComponent,
+    ViewQuizzComponent, 
     CreateQuizzComponent,
     CreateQuestionsComponent,
     ListQuestionsComponent

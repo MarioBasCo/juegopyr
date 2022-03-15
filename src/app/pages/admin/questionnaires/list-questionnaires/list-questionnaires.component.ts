@@ -1,10 +1,10 @@
+import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { LstorageService } from './../../../../services/lstorage.service';
 import { QuizzService } from './../../../../services/quizz.service';
 
-import { ModalController } from '@ionic/angular';
-import { Component, OnInit } from '@angular/core';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { ModalController, AlertController, ToastController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-list-questionnaires',
@@ -15,9 +15,14 @@ export class ListQuestionnairesComponent implements OnInit {
   cuestionarios: any[] = [];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
-  testModal;
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
 
-  constructor(private modal: ModalController, private serQuizz: QuizzService, private serStorage: LstorageService) {
+  constructor(
+    private serQuizz: QuizzService, 
+    private serStorage: LstorageService,
+    private alertCtrl: AlertController,
+    private toast: ToastController) {
   }
 
   ngOnInit() { 
@@ -28,46 +33,59 @@ export class ListQuestionnairesComponent implements OnInit {
         url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
       }
     };
+    this.cargarDatos();
+  }
 
+  cargarDatos(){
     const { userId } = this.serStorage.get('user');
     this.serQuizz.getCuestionarios(userId).subscribe(
       resp => {
         this.cuestionarios = resp;
         this.dtTrigger.next();
       }
-    )
+    );
   }
 
-  save() {
-    this.testModal?.toggle()
+
+  async confirmBox(item: any){
+    const alert = await this.alertCtrl.create({
+      header: '!Advertencia¡',
+      cssClass: 'app-alert',
+      message: `<ion-icon name="alert-circle-outline"></ion-icon><br> ¿Desea <strong>eliminar</strong> el cuestionario ${item.titulo}?`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+          }
+        }, {
+          text: 'Confirmar',
+          role: 'exit',
+          handler: () => {
+            this.serQuizz.deleteQuizz(item.cuestionarioId).subscribe(resp => {
+              if(resp.status == true) {
+                this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+                  dtInstance.destroy();
+                  this.cargarDatos();
+                });
+                
+                this.showMessage(resp.message, 'success');
+              }
+            });
+          }
+        }
+      ]
+    });
+
+    alert.present();
   }
 
-  confirmBox() {
-    Swal.fire({
-      title: '¿Estás seguro de que quieres eliminar?',
-      text: '¡No podrá recuperar este dato!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: '¡Sí!',
-      cancelButtonText: 'No'
-    }).then((result) => {
-      if (result.value) {
-        Swal.fire(
-          '¡Eliminado!',
-          'El dato ha sido eliminado con éxito.',
-          'success'
-        )
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelado',
-          'Your imaginary file is safe :)',
-          'error'
-        )
-      }
-    })
-  }
-
-  openModal(element) {
-
+  async showMessage(message: string, color: string) {
+    const toast = await this.toast.create({
+      message,
+      color,
+      duration: 3000
+    });
+    toast.present();
   }
 }

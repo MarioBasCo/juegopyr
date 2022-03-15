@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./students.page.scss'],
 })
 export class StudentsPage implements OnInit {
-  factual = new Date();
   
   constructor() { }
 

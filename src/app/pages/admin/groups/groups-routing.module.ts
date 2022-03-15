@@ -1,3 +1,4 @@
+import { ExitGuard } from './../../../guards/exit.guard';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { ListGroupsComponent } from './list-groups/list-groups.component';
 import { NgModule } from '@angular/core';
@@ -15,7 +16,8 @@ const routes: Routes = [
       },
       {
         path: 'create-group',
-        component: CreateGroupComponent 
+        component: CreateGroupComponent,
+        canDeactivate: [ExitGuard] 
       },
       { 
         path: 'edit-group/:id', 

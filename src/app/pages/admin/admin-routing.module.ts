@@ -32,7 +32,11 @@ const routes: Routes = [
       {
         path: 'message-settings',
         loadChildren: () => import('./message-settings/message-settings.module').then( m => m.MessageSettingsPageModule)
-      }
+      },
+      {
+        path: 'profile',
+        loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+      },
     ]
   },
 ];

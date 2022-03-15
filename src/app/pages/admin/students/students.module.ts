@@ -1,3 +1,4 @@
+import { FooterModule } from './../../../components/footer/footer.module';
 import { DataTablesModule } from 'angular-datatables';
 import { CreateStudentComponent } from './create-student/create-student.component';
 import { ListStudentsComponent } from './list-students/list-students.component';
@@ -18,6 +19,7 @@ import { StudentsPage } from './students.page';
     FormsModule,
     IonicModule,
     HeaderModule,
+    FooterModule,
     DataTablesModule,
     ReactiveFormsModule,
     StudentsPageRoutingModule

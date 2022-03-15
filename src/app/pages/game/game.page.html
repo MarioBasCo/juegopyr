@@ -11,92 +11,41 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div id="container">
-    <div>
-      <div class="card mb-3">
-        <div class="card-body">
-          <!-- <div class="ion-text-center">
-            <h2 class="titulo-pg">
-              Pregunta {{pregunta.indice+1}}
-            </h2>
-          </div> -->
-  
-          <div class="imagen text-center" *ngIf="pregunta.img">
-            <ion-img [src]="url+pregunta.img" style="width: 250px; height: 250px;"> </ion-img>
-          </div>
-  
-          <ion-item>
-            <div class="pregunta ion-text-justify">
-              <h6>{{pregunta.titulo}}</h6>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col sizeMd="6" sizeSm="12" sizeXs="12" sizeLg="6">
+        <div id="container">
+          <div>
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="ion-text-center">
+                  <h3 class="titulo-pg">
+                    Pregunta {{indiceActual+1}}
+                  </h3>
+                </div>
+        
+                <div class="imagen text-center ion-margin-vertical" *ngIf="pregunta.img != ''">
+                  <ion-img [src]="url+pregunta.img"> </ion-img>
+                </div>
+        
+                <div class="pregunta ion-text-center ion-margin-bottom">
+                  <h4><strong>{{pregunta.titulo}}</strong></h4>
+                </div>
+
+                <h5>Respuesta: </h5>
+                <ion-item *ngFor="let radio of pregunta.respuestas" lines="full" class="ion-margin-bottom">
+                  <label>{{radio.descripcion}}</label>
+                  <ion-checkbox color="lime" slot="start" mode="ios"></ion-checkbox>
+                </ion-item>
+      
+                <ion-row class="ion-margin-top ion-justify-content-center">
+                  <ion-button class="btn-op" expand="block" color="success" type="submit" (click)="nextPregunta(pregunta.preguntaId)">Siguiente</ion-button>
+                </ion-row>
+              </div>
             </div>
-          </ion-item>
-  
-          <ion-list lines="none">
-            <ion-list-header>
-              <ion-label class="titulo-resp">
-                Respuesta:
-              </ion-label>
-            </ion-list-header>
-  
-            <ion-item *ngFor="let radio of pregunta.respuestas" lines="none">
-              <label>{{radio.descripcion}}</label>
-              <ion-checkbox color="lime" slot="start" mode="ios"></ion-checkbox>
-            </ion-item>
-          </ion-list>
-
-          <ion-row class="ion-margin-top ion-justify-content-center">
-            <ion-button class="btn-op" expand="block" color="success" type="submit" (click)="nextPregunta(pregunta.preguntaId)">Siguiente</ion-button>
-          </ion-row>
+          </div>
         </div>
-      </div>
-    </div>
-    
-
-    <!-- <div class="ion-text-center">
-      <h2 class="titulo-pg">
-        Pregunta 1
-      </h2>
-    </div>
-
-    <div class="imagen">
-      <ion-img src="assets/read.png" style="width: 250px; height: 250px;"> </ion-img>
-    </div>
-
-    <ion-item>
-      <div class="pregunta ion-text-justify">
-        ¿Cuál de las siguientes opciones es un adjetivo?
-      </div>
-    </ion-item>
-
-    <ion-list>
-      <ion-radio-group>
-        <ion-list-header>
-          <ion-label class="titulo-resp">
-            Respuesta:
-          </ion-label>
-        </ion-list-header>
-  
-        <ion-item>
-          <ion-label>Susana</ion-label>
-          <ion-radio value="duesenberg"></ion-radio>
-        </ion-item>
-  
-        <ion-item>
-          <ion-label>Brillante</ion-label>
-          <ion-radio value="hudson"></ion-radio>
-        </ion-item>
-  
-        <ion-item>
-          <ion-label>Casa</ion-label>
-          <ion-radio value="packard"></ion-radio>
-        </ion-item>
-  
-        <ion-item>
-          <ion-label>Árbol</ion-label>
-          <ion-radio value="studebaker"></ion-radio>
-        </ion-item>
-      </ion-radio-group>
-    </ion-list> -->
-
-  </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

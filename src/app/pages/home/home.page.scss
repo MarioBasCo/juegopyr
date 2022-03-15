@@ -20,6 +20,11 @@ ion-grid {
     align-items: center;
 }
 
+ion-row {
+    width: 100%;
+    padding: 10px;
+} 
+
 .contenedor {
     display: flex;
     justify-content: space-between;

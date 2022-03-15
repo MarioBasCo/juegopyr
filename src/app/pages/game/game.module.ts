@@ -1,4 +1,3 @@
-import { RespuestaModule } from './../../modals/respuesta/respuesta.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +13,6 @@ import { GamePage } from './game.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    RespuestaModule,
     GamePageRoutingModule
   ],
   declarations: [GamePage]

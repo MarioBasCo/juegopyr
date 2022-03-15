@@ -6,8 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./questionnaires.page.scss'],
 })
 export class QuestionnairesPage implements OnInit {
-  factual = new Date();
-  
+
   constructor() { }
 
   ngOnInit() {

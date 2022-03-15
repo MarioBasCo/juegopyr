@@ -2,6 +2,10 @@
   <ion-menu contentId="main-content" type="overlay">
     <ion-content>
       <ion-list id="inbox-list">
+        <div class="ion-justify-content-center ion-text-center" style="width: 100%;">
+          <ion-img class="logo" src="assets/img/logo_ue.jpg">
+          </ion-img>
+        </div>
         <ion-list-header class="titulo">SECL</ion-list-header>
         <ion-note>Sistema de Evaluación de Conocimientos en Lengua y Literatura</ion-note>
 
@@ -15,6 +19,12 @@
           <ion-item routerDirection="root" routerLink="/admin/message-settings" lines="none" detail="false" routerLinkActive="selected">
             <ion-icon src="assets/icon/config-alert.svg" class="ion-margin-end"></ion-icon>
             <ion-label class="ion-margin-start">Configuraciones</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item routerDirection="root" routerLink="/admin/reports" lines="none" detail="false" routerLinkActive="selected">
+            <ion-icon src="assets/icon/pie.svg" class="ion-margin-end"></ion-icon>
+            <ion-label class="ion-margin-start">Reportes</ion-label>
           </ion-item>
         </ion-menu-toggle>
       </ion-list>

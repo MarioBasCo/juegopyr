@@ -40,6 +40,7 @@ export class CreateStudentComponent implements OnInit, OnExit {
   async showAlert() {
     const alert = await this.alertCtrl.create({
       header: '!Advertencia¡',
+      cssClass: 'app-alert',
       message: `¿Esta seguro de <strong>salir sin guardar</strong> los datos?`,
       buttons: [
         {

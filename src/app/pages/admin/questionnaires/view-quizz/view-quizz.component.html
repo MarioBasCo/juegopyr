@@ -1,0 +1,49 @@
+<ion-content class="ion-padding">
+  <ion-fab vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button size="small" color="ocean" routerLink="/admin/questionnaires">
+      <ion-icon size="large" name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="text-center">
+                <h5><strong>Datos del Cuestionario</strong></h5>
+                <hr>
+              </div>
+            </div>
+            <label><strong>Código: </strong>{{codigo}}</label><br>
+            <label><strong>Título: </strong>{{titulo}}</label><br>
+            <label><strong>Descripción: </strong>{{descripcion}}</label><br>
+            <label><strong>Fecha Disponible: </strong>{{fecha_disp | date: 'dd/MM/yyyy'}}</label><br>
+            <label><strong>Cantidad de Preguntas: </strong>{{num_preguntas}}</label>
+          </div>
+        </div>
+        
+        <div class="card mb-3" *ngFor="let pre of preguntas; index as i">
+          <div class="card-body">
+            <div class="text-center">
+              <h5><strong>Pregunta {{i+1}}</strong></h5>
+              <hr>
+            </div>
+            <div class="imagen text-center" *ngIf="pre.img != ''">
+              <ion-img [src]="url+pre.img"> </ion-img>
+            </div>
+            <label><strong>Pregunta: </strong>{{pre.titulo}}</label><br>
+            <div *ngFor="let resp of pre.respuestas">
+              <ion-item lines="full">
+                <ion-icon [name]="resp.valor == true ? 'checkmark-circle' : 'close-circle'" 
+                [color]="resp.valor == true ? 'lime' : 'rose'" slot="start"></ion-icon>
+                <p class="ion-text-justify">{{resp.descripcion}}</p>
+              </ion-item>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

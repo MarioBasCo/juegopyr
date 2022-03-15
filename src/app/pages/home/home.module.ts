@@ -1,5 +1,4 @@
-import { RespuestaModule } from './../../modals/respuesta/respuesta.module';
-import { RespuestaComponent } from './../../modals/respuesta/respuesta.component';
+import { FooterModule } from './../../components/footer/footer.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,7 +14,7 @@ import { HomePage } from './home.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    RespuestaModule,
+    FooterModule,
     HomePageRoutingModule
   ],
   declarations: [HomePage]

@@ -1,3 +1,4 @@
+import { FooterModule } from './../../components/footer/footer.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +14,7 @@ import { StartPage } from './start.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    FooterModule,
     StartPageRoutingModule
   ],
   declarations: [StartPage]

@@ -1,6 +1,5 @@
 import { QuizzService } from './../../services/quizz.service';
 import { LstorageService } from './../../services/lstorage.service';
-import { RespuestaComponent } from './../../modals/respuesta/respuesta.component';
 import { ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
@@ -13,6 +12,7 @@ export class GamePage implements OnInit {
   constructor(private modalCtrl: ModalController, private serStorage: LstorageService, private serQuizz: QuizzService) { }
   preguntas: any [] = [];
   pregunta: any;
+  indiceActual: number = 0;
 
   player_name: string = '';
   respUser: any [] = [];
@@ -21,6 +21,7 @@ export class GamePage implements OnInit {
   ngOnInit() {
     this.cargarDatos();
     this.pregunta = this.serStorage.get('preg')[0];
+    this.indiceActual = 0;
   }
 
   cargarDatos() {
@@ -35,11 +36,11 @@ export class GamePage implements OnInit {
   }
 
   async openModalRespuesta() {
-    const modal = await this.modalCtrl.create({
-      component: RespuestaComponent,
+    /* const modal = await this.modalCtrl.create({
+      component: ,
       cssClass: 'my-modal-class'
     });
-    return await modal.present();
+    return await modal.present(); */
   }
 
   nextPregunta(preguntaId: number){
@@ -49,11 +50,8 @@ export class GamePage implements OnInit {
       return;
     } else {
       this.pregunta = this.preguntas[i+1];
+      this.indiceActual = i;
       console.log(i, this.pregunta);
     }
-    
-    //console.log(this.preguntas);
-    //this.respUser[index].mostrar = false;
-    //this.respUser[index+1].mostrar = true;
   }
 }

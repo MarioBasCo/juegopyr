@@ -1,14 +1,14 @@
 import { IonicModule } from '@ionic/angular';
-import { RespuestaComponent } from './respuesta.component';
+import { FooterComponent } from './footer.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [RespuestaComponent],
+  declarations: [FooterComponent],
   imports: [
     CommonModule,
     IonicModule
   ],
-  exports: [RespuestaComponent]
+  exports: [FooterComponent]
 })
-export class RespuestaModule { }
+export class FooterModule { }
