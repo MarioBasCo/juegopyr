@@ -6,21 +6,21 @@
           <ion-img class="logo" src="assets/img/logo_ue.jpg">
           </ion-img>
         </div>
-        <ion-list-header class="titulo">SECL</ion-list-header>
+        <!-- <ion-list-header class="titulo">SECL</ion-list-header> -->
         <ion-note>Sistema de Evaluación de Conocimientos en Lengua y Literatura</ion-note>
-
+        <ion-note style="color: var(--ion-color-ocean);"><b>Docente:</b> {{usuario}}</ion-note>
         <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
           <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
             <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
             <ion-label>{{ p.title }}</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="false">
+        <!-- <ion-menu-toggle auto-hide="false">
           <ion-item routerDirection="root" routerLink="/admin/message-settings" lines="none" detail="false" routerLinkActive="selected">
             <ion-icon src="assets/icon/config-alert.svg" class="ion-margin-end"></ion-icon>
             <ion-label class="ion-margin-start">Configuraciones</ion-label>
           </ion-item>
-        </ion-menu-toggle>
+        </ion-menu-toggle> -->
         <ion-menu-toggle auto-hide="false">
           <ion-item routerDirection="root" routerLink="/admin/reports" lines="none" detail="false" routerLinkActive="selected">
             <ion-icon src="assets/icon/pie.svg" class="ion-margin-end"></ion-icon>

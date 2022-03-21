@@ -143,17 +143,14 @@ export class CreateQuestionsComponent implements OnInit {
       respuestas: listRespuestas
     }
 
-    //console.log(pregunta);
     this.serQuizz.crearPreguntas(pregunta).subscribe(
       resp => {
         console.log(resp)
         this.reset();
+        this.myInputVariable.nativeElement.value = "";
         this.cargarPreguntas();
       }
     ); 
-    //this.serQuizz.agregarPregunta(pregunta);
-
-    this.myInputVariable.nativeElement.value = "";
   }
 
   imageUpload(event){

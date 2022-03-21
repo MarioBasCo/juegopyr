@@ -1,12 +1,10 @@
 import { PlayerService } from './../../../../services/player.service';
 import { LstorageService } from './../../../../services/lstorage.service';
 import { GroupService } from './../../../../services/group.service';
-import { AlertController, ToastController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-
-import { OnExit } from 'src/app/guards/exit.guard';
 
 
 @Component({
@@ -14,61 +12,25 @@ import { OnExit } from 'src/app/guards/exit.guard';
   templateUrl: './create-student.component.html',
   styleUrls: ['./create-student.component.scss'],
 })
-export class CreateStudentComponent implements OnInit, OnExit {
+export class CreateStudentComponent implements OnInit {
+  id: string | null;
   studentForm: FormGroup;
   grupos: any[] = [];
 
   constructor(
     private fb: FormBuilder, 
     private router: Router, 
-    private alertCtrl: AlertController,
+    private aRoute: ActivatedRoute,
     private serStorage: LstorageService,
     private serPlayer: PlayerService,
     private toast: ToastController,
     private serGroup: GroupService) { 
+      this.id = this.aRoute.snapshot.paramMap.get('id');
     this.buildForm();
   }
 
-  async onExit() {
-    if (this.studentForm.dirty) {
-      return this.showAlert();
-    } else {
-      return true;
-    } 
-  }
-
-  async showAlert() {
-    const alert = await this.alertCtrl.create({
-      header: '!Advertencia¡',
-      cssClass: 'app-alert',
-      message: `¿Esta seguro de <strong>salir sin guardar</strong> los datos?`,
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => {
-            //return false;
-          }
-        }, {
-          text: 'Confirmar',
-          role: 'exit',
-          handler: () => {
-            //this.router.navigate(['admin/students']);
-            //return true;
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-
-    const { role } = await alert.onDidDismiss();
-    if(role){
-      return role == 'cancel' ? false : true; 
-    } 
-  }
-
   ngOnInit() {
+    this.esEditar();
     const { userId } = this.serStorage.get('user');
     this.serGroup.getGrupos(userId).subscribe(
       resp => {
@@ -102,6 +64,24 @@ export class CreateStudentComponent implements OnInit, OnExit {
   get player_nameField() {
     return this.studentForm.get('player_name');
   }
+  
+  esEditar(){
+    if (this.id != null) {
+      this.serPlayer.$getObjectSource.subscribe(
+        (resp: any) => {
+          const {nombre, apellido, grupo, player_name } = resp;
+          this.studentForm.patchValue(
+            {
+              nombre,
+              apellido,
+              grupoId: grupo.grupoId,
+              player_name,
+            }
+          );
+        }
+      );
+    }
+  }
 
   cancelar() {
     this.router.navigate(['admin/students']);
@@ -109,15 +89,19 @@ export class CreateStudentComponent implements OnInit, OnExit {
 
   guardar() {
     const data = this.studentForm.value;
-    this.serPlayer.createEstudiante(data).subscribe(
-      resp => {
-        if(resp.status == true){
-          this.showMessage(resp.message, 'success');
-          this.resetForm();
-          this.router.navigate(['admin/students']);
+    if (this.id != null) {
+
+    } else {
+      this.serPlayer.createEstudiante(data).subscribe(
+        resp => {
+          if(resp.status == true){
+            this.showMessage(resp.message, 'success');
+            this.resetForm();
+            this.router.navigate(['admin/students']);
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   resetForm(){
@@ -129,7 +113,7 @@ export class CreateStudentComponent implements OnInit, OnExit {
     const toast = await this.toast.create({
       message,
       color,
-      duration: 2000
+      duration: 3000
     });
     toast.present();
   }

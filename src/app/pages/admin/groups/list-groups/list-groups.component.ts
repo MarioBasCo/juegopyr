@@ -33,6 +33,7 @@ export class ListGroupsComponent implements OnInit, OnDestroy {
       }
     };
     this.cargarDatos();
+    
   }
 
   cargarDatos() {
@@ -46,6 +47,10 @@ export class ListGroupsComponent implements OnInit, OnDestroy {
         this.dtTrigger.next();
       }
     );
+  }
+
+  identify(index, item) {
+    return item.grupoId;
   }
 
   ngOnDestroy(): void {
@@ -70,6 +75,7 @@ export class ListGroupsComponent implements OnInit, OnDestroy {
           handler: () => {
             this.serGrupos.deleteGroup(item.grupoId).subscribe(resp => {
               if(resp.status == true) {
+                this.serGrupos.eliminarGrupo(item);
                 this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
                   dtInstance.destroy();
                   this.cargarDatos();

@@ -1,4 +1,3 @@
-import { OnExit } from './../../../../guards/exit.guard';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { GroupService } from './../../../../services/group.service';
@@ -11,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './create-group.component.html',
   styleUrls: ['./create-group.component.scss'],
 })
-export class CreateGroupComponent implements OnInit, OnExit {
+export class CreateGroupComponent implements OnInit {
   id: string | null;
   grupoForm: FormGroup;
   hasChange: boolean = false;
@@ -72,13 +71,6 @@ export class CreateGroupComponent implements OnInit, OnExit {
     this.router.navigateByUrl('/admin/groups');
   }
 
-  async onExit() {
-    if (this.grupoForm.dirty) {
-      return this.showAlert();
-    } else {
-      return true;
-    }
-  }
 
   guardar() {
     const { userId } = this.serStorage.get('user');
@@ -89,11 +81,13 @@ export class CreateGroupComponent implements OnInit, OnExit {
     this.changeFormValueChange();
     console.log(this.hasChange);
 
-    /* if (this.id != null) {
+    if (this.id != null) {
       this.serGroup.editGroup(parseInt(this.id), data).subscribe(
         resp => {
           console.log(resp);
           if (resp.status == true) {
+            let i = this.serGroup.groups.findIndex(d => d.grupoId == this.id);
+            this.serGroup.groups[i].nombre_grupo = this.descripcionField.value;
             this.resetForm();
             this.router.navigateByUrl('/admin/groups');
             this.showMessage(resp.message, 'success');
@@ -106,49 +100,20 @@ export class CreateGroupComponent implements OnInit, OnExit {
           console.log(resp);
           if (resp.status == true) {
             this.resetForm();
-            //this.serGroup.addGrupo(resp.data);
+            const { data } = resp;
+            data.estudiantes = 0;
+            this.serGroup.groups.push(data);
             this.router.navigateByUrl('/admin/groups');
             this.showMessage(resp.message, 'success');
           }
         }
       );
-    } */
+    } 
   }
-
 
   resetForm() {
     this.buildForm();
     this.grupoForm.reset(this.grupoForm.value);
-  }
-
-  async showAlert() {
-    const alert = await this.alertCtrl.create({
-      header: '!Advertencia¡',
-      message: `¿Esta seguro de <strong>salir sin guardar</strong> los datos?`,
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => {
-            //return false;
-          }
-        }, {
-          text: 'Confirmar',
-          role: 'exit',
-          handler: () => {
-            //this.router.navigate(['admin/students']);
-            //return true;
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-
-    const { role } = await alert.onDidDismiss();
-    if (role) {
-      return role == 'cancel' ? false : true;
-    }
   }
 
   async showMessage(message: string, color: string) {

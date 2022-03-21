@@ -2,7 +2,7 @@ import { LstorageService } from './../../../../services/lstorage.service';
 import { QuizzService } from './../../../../services/quizz.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 
 @Component({
@@ -11,14 +11,25 @@ import * as moment from 'moment';
   styleUrls: ['./create-quizz.component.scss'],
 })
 export class CreateQuizzComponent implements OnInit {
+  id: string | null;
   cuestionarioForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private serQuizz: QuizzService,
     private serStorage: LstorageService,
-    private router: Router) {
-      let hoy = new Date();
+    private router: Router,
+    private aRoute: ActivatedRoute) {
+    this.buildForm();
+    this.id = this.aRoute.snapshot.paramMap.get('id');
+  }
+
+  ngOnInit(): void {
+    this.esEditar();
+  }
+
+  buildForm(){
+    let hoy = new Date();
       hoy.setDate(hoy.getDate()+3);
       let fstr = moment(hoy).format('MM/DD/YYYY');
       let hola = new Date(fstr).toISOString().slice(0, 10).replace('T', ' ');
@@ -27,10 +38,6 @@ export class CreateQuizzComponent implements OnInit {
         descripcion: ['', Validators.required],
         fecha_disp: [hola, Validators.required]
       });
-  }
-
-  ngOnInit(): void {
-  
   }
 
   get tituloField() {
@@ -43,6 +50,24 @@ export class CreateQuizzComponent implements OnInit {
 
   get fechaDispField() {
     return this.cuestionarioForm.get('fecha_disp');
+  }
+
+  esEditar(){
+    if (this.id != null) {
+      this.serQuizz.getCuestionario(parseInt(this.id)).subscribe(
+        (resp: any) => {
+          const {titulo, descripcion, fecha_disp } = resp;
+          console.log(fecha_disp);
+          this.cuestionarioForm.patchValue(
+            {
+              titulo,
+              descripcion,
+              fecha_disp: new Date(fecha_disp).toISOString().slice(0, 10).replace('T', ' '),
+            }
+          );
+        }
+      );
+    }
   }
 
   cancelar(){

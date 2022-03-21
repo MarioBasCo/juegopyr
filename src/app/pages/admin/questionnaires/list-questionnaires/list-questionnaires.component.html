@@ -20,6 +20,7 @@
               <th scope="col" class="text-center">Cant. Preguntas</th>
               <th scope="col" class="text-center">Código</th>
               <th scope="col" class="text-center">Disponible Hasta</th>
+              <th scope="col" class="text-center">Estado</th>
               <th scope="col" class="text-center">Acciones</th>
             </tr>
           </thead>
@@ -28,13 +29,20 @@
               <th scope="row" class="text-end">{{i+1}}</th>
               <td>{{item.titulo}}</td>
               <td class="text-center">{{item.num_preguntas}}</td>
-              <td class="text-center">{{item.codigo}}</td>
+              <td class="text-center">
+                <span *ngIf="item.codigo == ''">---</span>
+                <span *ngIf="item.codigo != ''">{{item.codigo}}</span>
+              </td>
               <td class="text-center">{{item.fecha_disp | date: 'dd/MM/yyyy'}}</td>
+              <td class="text-center">
+                <span *ngIf="item.estado == 'A'"><ion-badge color="sun">Activo</ion-badge></span>
+                <span *ngIf="item.estado == 'I'"><ion-badge color="medium">Inactivo</ion-badge></span>
+              </td>
               <td class="text-center">
                 <div class="actions">
                   <ion-icon style="font-size: 20px;" name="eye" color="medium"
                   [routerLink]="['/admin/questionnaires/view', item.cuestionarioId]"></ion-icon>
-                  <ion-icon style="font-size: 20px;" name="create" color="ocean"></ion-icon>
+                  <ion-icon style="font-size: 20px;" name="create" color="ocean" (click)="edit(item)"></ion-icon>
                   <ion-icon style="font-size: 20px;" name="trash" color="rose" (click)="confirmBox(item)"></ion-icon>
                 </div>
               </td>

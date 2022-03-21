@@ -1,6 +1,8 @@
+import { ComodinComponent } from './../../modals/comodin/comodin.component';
+import { CongratulationsComponent } from './../../modals/congratulations/congratulations.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -12,9 +14,10 @@ import { GamePage } from './game.page';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
     GamePageRoutingModule
   ],
-  declarations: [GamePage]
+  declarations: [GamePage, CongratulationsComponent, ComodinComponent]
 })
 export class GamePageModule {}

@@ -1,3 +1,4 @@
+import { LstorageService } from './../../services/lstorage.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPage implements OnInit {
   public appPages: any [] = [];
+  usuario: string = '';
 
-  constructor() { 
+  constructor(private serStorage: LstorageService) { 
     this.appPages = [
       { title: 'Dashboard', url: '/admin/dashboard', icon: 'bar-chart' },
       { title: 'Grupos', url: '/admin/groups', icon: 'people' },
@@ -18,6 +20,8 @@ export class AdminPage implements OnInit {
   }
 
   ngOnInit() {
+    const { nombre, apellido } = this.serStorage.get('user');
+    this.usuario = `${nombre} ${apellido}`
   }
 
 }

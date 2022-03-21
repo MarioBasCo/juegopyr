@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { LstorageService } from './../../../../services/lstorage.service';
@@ -21,6 +22,7 @@ export class ListQuestionnairesComponent implements OnInit {
   constructor(
     private serQuizz: QuizzService, 
     private serStorage: LstorageService,
+    private router: Router,
     private alertCtrl: AlertController,
     private toast: ToastController) {
   }
@@ -41,6 +43,7 @@ export class ListQuestionnairesComponent implements OnInit {
     this.serQuizz.getCuestionarios(userId).subscribe(
       resp => {
         this.cuestionarios = resp;
+        console.log(resp);
         this.dtTrigger.next();
       }
     );
@@ -78,6 +81,10 @@ export class ListQuestionnairesComponent implements OnInit {
     });
 
     alert.present();
+  }
+
+  edit(item) {
+    this.router.navigateByUrl(`admin/questionnaires/quizz/${item.cuestionarioId}`);
   }
 
   async showMessage(message: string, color: string) {

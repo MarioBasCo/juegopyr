@@ -1,4 +1,3 @@
-import { ExitGuard } from './../../../guards/exit.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CreateStudentComponent } from './create-student/create-student.component';
@@ -18,7 +17,6 @@ const routes: Routes = [
       {
         path: 'create-student',
         component: CreateStudentComponent,
-        canDeactivate: [ExitGuard]
       },
       {
         path: 'edit-student/:id',

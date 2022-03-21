@@ -20,7 +20,7 @@
                 <!-- <ion-label>
                   Hola
                 </ion-label> -->
-                <ion-input placeholder="Nombre de Jugador" name="player_name" [(ngModel)]="player_name"></ion-input>
+                <ion-input placeholder="Nombre de Usuario" name="player_name" [(ngModel)]="player_name" (ngModelChange)="player_name = $event.toUpperCase()"></ion-input>
               </ion-item>
   
               <ion-button class="btn-ing" expand="block" color="lime" (click)="ingresoJuego()" [disabled]="player_name.length == 0">

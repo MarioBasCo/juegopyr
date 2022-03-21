@@ -123,7 +123,7 @@
               </h2>
             </div>
 
-            <div class="imagen" *ngIf="item.img">
+            <div class="imagen text-center" *ngIf="item.img">
               <ion-img [src]="url+item.img" style="width: 250px; height: 250px;"> </ion-img>
             </div>
 
@@ -145,6 +145,14 @@
                 <ion-checkbox color="lime" slot="start" mode="ios" [checked]="radio.valor" disabled="true"></ion-checkbox>
               </ion-item>
             </ion-list>
+            <div class="row">
+              <div class="col">
+                <ion-button expand="block" fill="outline" color="rose">Eliminar</ion-button>
+              </div>
+              <div class="col">
+                <ion-button expand="block" color="ocean">Editar</ion-button>
+              </div>
+            </div>
           </div>
         </div>
 

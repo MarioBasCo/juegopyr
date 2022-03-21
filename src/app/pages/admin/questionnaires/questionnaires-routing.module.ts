@@ -24,6 +24,9 @@ const routes: Routes = [
         path: 'quizz', component: CreateQuizzComponent
       },
       {
+        path: 'quizz/:id', component: CreateQuizzComponent
+      },
+      {
         path: 'questions', component: CreateQuestionsComponent
       }
     ]

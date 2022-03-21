@@ -9,14 +9,16 @@ export class GroupService {
   path_base = environment.webService;
   groups: any[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.groups = [];
+  }
 
   get listGrupos() {
     return this.groups;
   }
   
-  addGrupo(item: any){
-    this.groups.push(item);
+  addGrupo(data: any){
+    this.groups.push(data);
   }
   
   eliminarGrupo(item: any) {

@@ -18,7 +18,7 @@
               <th scope="col" class="text-center">#</th>
               <th scope="col" class="text-center">Nombres</th>
               <th scope="col" class="text-center">Apellidos</th>
-              <th scope="col" class="text-center">Player Name</th>
+              <th scope="col" class="text-center">Nombre de Usuario</th>
               <th scope="col" class="text-center">Grupo</th>
               <th scope="col" class="text-center">Acciones</th>
             </tr>
@@ -32,7 +32,7 @@
               <td class="text-center">{{item.grupo.nombre_grupo}}</td>
               <td class="text-center">
                 <div class="actions">
-                  <ion-icon style="font-size: 20px;" name="create" color="ocean"></ion-icon>
+                  <ion-icon style="font-size: 20px;" name="create" color="ocean" (click)="edit(item)"></ion-icon>
                   <ion-icon style="font-size: 20px;" name="trash" color="rose" (click)="confirmBox(item)"></ion-icon>
                 </div>
               </td>

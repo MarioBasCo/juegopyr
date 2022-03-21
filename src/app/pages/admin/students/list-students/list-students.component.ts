@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Subject } from 'rxjs';
@@ -20,6 +21,7 @@ export class ListStudentsComponent implements OnInit, OnDestroy {
   constructor(
     private serPlayer: PlayerService, 
     private serStorage: LstorageService,
+    private router: Router,
     private alertCtrl: AlertController,
     private toast: ToastController) { }
 
@@ -80,6 +82,11 @@ export class ListStudentsComponent implements OnInit, OnDestroy {
     });
 
     alert.present();
+  }
+
+  edit(item){
+    this.serPlayer.enviarObject(item);
+    this.router.navigateByUrl(`admin/students/edit-student/${item.jugadorId}`);
   }
 
   async showMessage(message: string, color: string) {

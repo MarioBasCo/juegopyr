@@ -1,3 +1,4 @@
+import { GameGuard } from './guards/game.guard';
 import { AutoLoginGuard } from './guards/auto-login.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { NgModule } from '@angular/core';
@@ -22,7 +23,7 @@ const routes: Routes = [
   {
     path: 'game',
     loadChildren: () => import('./pages/game/game.module').then( m => m.GamePageModule),
-    canLoad: [AutoLoginGuard]
+    canLoad: [AutoLoginGuard, GameGuard]
   },
   {
     path: 'login',

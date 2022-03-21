@@ -1,3 +1,5 @@
+import { LstorageService } from './../../../services/lstorage.service';
+import { ReportsService } from './../../../services/reports.service';
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 
@@ -10,12 +12,20 @@ import { Chart, registerables } from 'chart.js';
 export class DashboardPage implements OnInit {
   chart: any = [];
   promedios: any = [];
+  cuestionarios: number = 0;
+  cuestionarios_resueltos: number = 0;
+  grupos: number = 0;
+  estudiantes: number = 0;
 
-  constructor() {
+  constructor(
+    private serStorage: LstorageService,
+    private serReport: ReportsService
+  ) {
     Chart.register(...registerables);
   }
 
   ngOnInit() {
+    this.cargarInfo();
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
@@ -33,6 +43,19 @@ export class DashboardPage implements OnInit {
       },
     });
     this.grafico();
+  }
+
+  cargarInfo(){
+    const { userId } = this.serStorage.get('user');
+    this.serReport.getInfoDasboard(userId).subscribe(
+      resp => {
+        console.log(resp);
+        this.cuestionarios = resp.cuestionarios;
+        this.grupos = resp.grupos.total_grupos;
+        this.estudiantes = resp.grupos.total_estudiantes;
+        this.cuestionarios_resueltos = resp.cuestionarios_resueltos;
+      }
+    );
   }
 
   grafico() {

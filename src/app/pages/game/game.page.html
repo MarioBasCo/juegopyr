@@ -1,51 +1,44 @@
 <ion-header>
   <ion-toolbar>
-    <!-- <ion-buttons slot="primary">
-      <ion-button>
-        <ion-badge color="dark">3</ion-badge>
-        <ion-icon id="life" slot="end" name="heart-half" color="rose"></ion-icon>
-      </ion-button>
-    </ion-buttons> -->
     <ion-title>{{player_name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-grid>
-    <ion-row class="ion-justify-content-center">
-      <ion-col sizeMd="6" sizeSm="12" sizeXs="12" sizeLg="6">
-        <div id="container">
-          <div>
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="ion-text-center">
-                  <h3 class="titulo-pg">
-                    Pregunta {{indiceActual+1}}
-                  </h3>
-                </div>
-        
-                <div class="imagen text-center ion-margin-vertical" *ngIf="pregunta.img != ''">
-                  <ion-img [src]="url+pregunta.img"> </ion-img>
-                </div>
-        
-                <div class="pregunta ion-text-center ion-margin-bottom">
-                  <h4><strong>{{pregunta.titulo}}</strong></h4>
-                </div>
-
-                <h5>Respuesta: </h5>
-                <ion-item *ngFor="let radio of pregunta.respuestas" lines="full" class="ion-margin-bottom">
-                  <label>{{radio.descripcion}}</label>
-                  <ion-checkbox color="lime" slot="start" mode="ios"></ion-checkbox>
-                </ion-item>
-      
-                <ion-row class="ion-margin-top ion-justify-content-center">
-                  <ion-button class="btn-op" expand="block" color="success" type="submit" (click)="nextPregunta(pregunta.preguntaId)">Siguiente</ion-button>
-                </ion-row>
-              </div>
-            </div>
+  <div class="container">
+    <div class="card mb-3">
+      <div class="card-body">
+        <form [formGroup]="formPreg">
+          <div class="ion-text-center">
+            <h3 class="titulo-pg">
+              Pregunta {{indiceActual+1}}
+            </h3>
           </div>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+
+          <div class="imagen text-center ion-margin-vertical" *ngIf="imgField?.value != ''">
+            <ion-img [src]="url+imgField?.value"> </ion-img>
+          </div>
+
+          <div class="pregunta ion-text-center ion-margin-bottom">
+            <h4><strong>{{tituloField?.value}}</strong></h4>
+          </div>
+
+          <h5>Respuesta: </h5>
+          <ion-list>
+            <ion-radio-group formControlName="respuestaId" (ionChange)="setRespuetaId($event)">
+              <ion-item *ngFor="let resp of listpreguntas[indiceActual].respuestas" lines="full">
+                <div class="ion-text-justify">{{resp.descripcion}}</div>
+                <ion-radio slot="start" [value]="resp.respuestaId" color="warning"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+
+          <ion-row class="ion-margin-top ion-justify-content-center">
+            <ion-button class="btn-op" expand="block" color="success" type="submit" 
+              [disabled]="!formPreg.valid" (click)="nextPregunta(preguntaIdField?.value)">{{txtbtn}}</ion-button>
+          </ion-row>
+        </form>
+      </div>
+    </div>
+  </div>
 </ion-content>
