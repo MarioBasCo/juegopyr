@@ -95,4 +95,11 @@ export class ListQuestionnairesComponent implements OnInit {
     });
     toast.present();
   }
+
+  recargarDatos(){
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.cargarDatos();
+    });
+  }
 }

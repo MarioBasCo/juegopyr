@@ -16,6 +16,8 @@ export class DashboardPage implements OnInit {
   cuestionarios_resueltos: number = 0;
   grupos: number = 0;
   estudiantes: number = 0;
+  listPromedios: any[] = [];
+  listPorcentajes: any[] = [];
 
   constructor(
     private serStorage: LstorageService,
@@ -26,26 +28,12 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
     this.cargarInfo();
-    this.chart = new Chart('canvas', {
-      type: 'line',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [
-          {
-            data: [12, 19, 3, 5, 2, 3],
-            borderColor: '#3e95cd',
-            fill: false,
-            label: 'Coin Price',
-            backgroundColor: 'rgba(93, 175, 89, 0.1)',
-            borderWidth: 3,
-          },
-        ],
-      },
-    });
-    this.grafico();
+    console.log(this.listPromedios);
+
+    //this.grafico();
   }
 
-  cargarInfo(){
+  cargarInfo() {
     const { userId } = this.serStorage.get('user');
     this.serReport.getInfoDasboard(userId).subscribe(
       resp => {
@@ -56,28 +44,61 @@ export class DashboardPage implements OnInit {
         this.cuestionarios_resueltos = resp.cuestionarios_resueltos;
       }
     );
+    this.serReport.getAveragesDasboard(userId).subscribe(
+      resp => {
+        this.listPromedios = resp;
+        this.graficarPromedios(this.listPromedios);
+      }
+    );
+    this.serReport.getPorcentajesPromedios(userId).subscribe(
+      resp => {
+        this.listPorcentajes = resp;
+        this.graficoPorcentajes(this.listPorcentajes);
+      }
+    )
   }
 
-  grafico() {
+  graficarPromedios(data: any) {
+    this.chart = new Chart('canvas', {
+      type: 'line',
+      data: {
+        labels: data.map(d => d.codigo),
+        datasets: [
+          {
+            data: data.map(d => d.promedio),
+            borderColor: '#3e95cd',
+            fill: false,
+            label: 'Promedio',
+            backgroundColor: 'rgba(93, 175, 89, 0.1)',
+            borderWidth: 3,
+          },
+        ],
+      },
+    });
+  }
+
+  graficoPorcentajes(data: any) {
     this.promedios = new Chart('bar', {
       type: 'pie',
       data: {
-          labels: ['Regular', 'Bueno', 'Muy Bueno'],
-          datasets: [{
-              label: '# of Votes',
-              data: [5, 14, 19],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-              ],
-              borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-              ],
-              borderWidth: 1
-          }]
+        labels: data.map(d => d.detalle.toUpperCase()),
+        datasets: [{
+          label: '# of Votes',
+          data: data.map(d => d.cantidad),
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+          ],
+          borderWidth: 1
+        }]
       },
       options: {
         responsive: true,
@@ -89,8 +110,8 @@ export class DashboardPage implements OnInit {
                 }
             }]
         } */
-    }
-  });
+      }
+    });
 
   }
 }

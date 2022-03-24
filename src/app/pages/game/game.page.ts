@@ -119,8 +119,8 @@ export class GamePage implements OnInit {
       this.serResp.createAnswers(data).subscribe(resp => {
         if(resp.status == true){
           let quizzPlayerId = resp.data.quizzPlayerId;
-          this.serResp.getFirstAnswer(quizzPlayerId).subscribe(resp => {
-            if(resp.preguntas == resp.aciertos){
+          this.serResp.getFirstAnswer(quizzPlayerId).subscribe(data => {
+            if(data.preguntas == data.aciertos){
               //this.serStorage.clear();
               this.openModalDetail();
             } else {

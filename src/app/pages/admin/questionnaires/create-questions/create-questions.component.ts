@@ -223,7 +223,8 @@ export class CreateQuestionsComponent implements OnInit {
     const data = {
       codigo: this.generarCodigo(),
       num_preguntas: this.listPreguntas.length,
-      estado: 'A'
+      estado: 'A',
+      accion: 'complete'
     }
     this.serQuizz.actualizarEstado(this.cuestionarioId, data).subscribe(
       resp => {
@@ -243,7 +244,7 @@ export class CreateQuestionsComponent implements OnInit {
     const toast = await this.toast.create({
       message,
       color,
-      duration: 2000
+      duration: 3000
     });
     toast.present();
   }

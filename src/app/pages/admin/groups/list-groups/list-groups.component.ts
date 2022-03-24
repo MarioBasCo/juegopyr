@@ -101,4 +101,10 @@ export class ListGroupsComponent implements OnInit, OnDestroy {
     toast.present();
   }
 
+  recargarDatos(){
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.cargarDatos();
+    });
+  }
 }

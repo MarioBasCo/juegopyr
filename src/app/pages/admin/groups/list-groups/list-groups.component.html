@@ -6,6 +6,7 @@
         <div class="col-md-12 mb-3">
           <div class="text-center">
             <strong class="text-dark titulo"> Listado de Grupos</strong>
+            <ion-button class="float-end" color="lime" fill="outline" (click)="recargarDatos()"><ion-icon name="reload"></ion-icon></ion-button>
             <ion-button class="float-end" color="ocean" routerLink="create-group">NUEVO</ion-button>
           </div>
         </div>
@@ -35,6 +36,10 @@
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <div class="row ion-margin-top">
+        <ion-note color="warning"><ion-icon name="warning-outline" class="ion-margin-end"></ion-icon>Sí no ve los cambios reflejados presione el botón actualizar</ion-note>
       </div>
     </div>
   </div>

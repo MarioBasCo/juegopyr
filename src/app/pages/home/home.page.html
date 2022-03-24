@@ -11,7 +11,7 @@
           <div style="width: 100%;">
             <form>
               <ion-item lines="none" class="ion-margin-vertical">
-                <ion-input type="text" placeholder="Código del Cuestionario" [(ngModel)]="codigo" name="codigo" (ngModelChange)="codigo = $event.toUpperCase()"></ion-input>
+                <ion-input type="text" placeholder="Código del Cuestionario" maxlength="6" [(ngModel)]="codigo" name="codigo" (ngModelChange)="codigo = $event.toUpperCase()"></ion-input>
               </ion-item>
   
               <ion-button class="btn-ing" expand="block" color="ocean" (click)="ingresoJuego()" [disabled]="codigo.length == 0">

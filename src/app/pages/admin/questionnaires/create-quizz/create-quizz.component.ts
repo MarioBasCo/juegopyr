@@ -1,3 +1,4 @@
+import { ToastController } from '@ionic/angular';
 import { LstorageService } from './../../../../services/lstorage.service';
 import { QuizzService } from './../../../../services/quizz.service';
 import { Component, OnInit } from '@angular/core';
@@ -18,6 +19,7 @@ export class CreateQuizzComponent implements OnInit {
     private fb: FormBuilder,
     private serQuizz: QuizzService,
     private serStorage: LstorageService,
+    private toast: ToastController,
     private router: Router,
     private aRoute: ActivatedRoute) {
     this.buildForm();
@@ -58,11 +60,13 @@ export class CreateQuizzComponent implements OnInit {
         (resp: any) => {
           const {titulo, descripcion, fecha_disp } = resp;
           console.log(fecha_disp);
+          let fstr = moment(fecha_disp).format('MM/DD/YYYY');
+          let fdisp = new Date(fstr).toISOString().slice(0, 10).replace('T', ' ');
           this.cuestionarioForm.patchValue(
             {
               titulo,
               descripcion,
-              fecha_disp: new Date(fecha_disp).toISOString().slice(0, 10).replace('T', ' '),
+              fecha_disp: fdisp,
             }
           );
         }
@@ -75,23 +79,50 @@ export class CreateQuizzComponent implements OnInit {
   }
 
   siguiente() {
-    if (!this.cuestionarioForm.invalid) {
-      const { userId } = this.serStorage.get('user');
+    if (this.id != null) {
       const data = {
-        userId,
         titulo: this.tituloField?.value,
+        descripcion: this.descripcionField?.value,
         fecha_disp: this.fechaDispField?.value,
-        descripcion: this.descripcionField?.value
+        estado: 'A',
+        accion: 'update'
       }
-    
-      //console.log(data)
-      this.serQuizz.crearCuestionario(data).subscribe(
+      this.serQuizz.actualizarEstado(parseInt(this.id), data).subscribe(
         resp => {
-          this.serQuizz.enviarObject(resp);
+          if(resp.status == true){
+            this.showMessage('Cuestinario Actualizado', 'success');
+            this.router.navigate(['/admin/questionnaires/questions']);
+          }
         }
       );
+    } else {
+      if (!this.cuestionarioForm.invalid) {
+        const { userId } = this.serStorage.get('user');
+        const data = {
+          userId,
+          titulo: this.tituloField?.value,
+          fecha_disp: this.fechaDispField?.value,
+          descripcion: this.descripcionField?.value
+        }
+      
+        //console.log(data)
+        this.serQuizz.crearCuestionario(data).subscribe(
+          resp => {
+            this.serQuizz.enviarObject(resp);
+          }
+        );
+  
+        this.router.navigate(['/admin/questionnaires/questions']);
+      } 
+    }
+  }
 
-      this.router.navigate(['/admin/questionnaires/questions']);
-    } 
+  async showMessage(message: string, color: string) {
+    const toast = await this.toast.create({
+      message,
+      color,
+      duration: 3000
+    });
+    toast.present();
   }
 }

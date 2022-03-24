@@ -14,4 +14,15 @@ export class ReportsService {
     const  URL = this.path_base + "reportes/"+id;
     return this.http.get<any>(URL);
   }
+
+  getAveragesDasboard(id: number){
+    const  URL = this.path_base + "reportes/averages/"+id;
+    return this.http.get<any>(URL);
+  }
+
+  getPorcentajesPromedios(id: number){
+    const  URL = this.path_base + "reportes/percentages/"+id;
+    return this.http.get<any>(URL);
+  }
+
 }
