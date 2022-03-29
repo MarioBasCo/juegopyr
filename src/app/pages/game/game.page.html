@@ -1,12 +1,8 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>{{player_name}}</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header-game></app-header-game>
 
 <ion-content class="ion-padding">
   <div class="container">
-    <div class="card mb-3">
+    <div class="card mb-3 animate__animated animate__fadeIn">
       <div class="card-body">
         <form [formGroup]="formPreg">
           <div class="ion-text-center">
@@ -42,3 +38,5 @@
     </div>
   </div>
 </ion-content>
+
+<app-footer-game></app-footer-game>

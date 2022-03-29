@@ -33,7 +33,8 @@ export class StartPage implements OnInit {
           this.serAnswerPlayer.validateResolve(jugadorId, cuestionarioId).subscribe(
             resp => {
               if(resp.status == false){
-                this.router.navigate(['/game']);
+                this.router.navigate(['/play']);
+                this.serStorage.set('cargado', {cargado: true});
               } else {
                 this.serStorage.clear();
                 this.router.navigate(['/home']);

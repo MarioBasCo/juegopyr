@@ -1,7 +1,32 @@
 <app-header titulo="Perfil"></app-header>
 
 <ion-content>
-
+    <div class="container">
+        <div class="profile-container">
+            <div class="img-container">
+                <img src="assets/icon/teacher.svg">
+            </div>
+            <p class="info full-name">
+                {{user.nombre}}
+            </p>
+            <p class="info full-name">
+                {{user.apellido}}
+            </p>
+            <p class="info">
+                <ion-icon name="mail"></ion-icon>
+                {{user.correo}}
+            </p>
+            <p class="info">
+                <ion-icon name="calendar-number"></ion-icon>
+                {{user.fechanaci | date}}
+            </p>
+            <!-- <div class="detail_info">
+                <p><span>{{objCliente.compras}}</span>Compras</p>
+                <p><span>{{objCliente.total | currency: 'USD'}}</span>Total</p>
+            </div> -->
+            <button class="edit" (click)="openEdit()">Editar</button>
+        </div>
+    </div>
 </ion-content>
 
 <app-footer></app-footer>

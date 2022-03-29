@@ -1,3 +1,4 @@
+import { environment } from './../../../../../environments/environment.prod';
 import { Pregunta } from './../../../../models/Pregunta';
 import { Cuestionario } from './../../../../models/Cuestionario';
 import { QuizzService } from './../../../../services/quizz.service';
@@ -18,7 +19,7 @@ export class ViewQuizzComponent implements OnInit {
   fecha_disp: Date;
   num_preguntas: number;
   preguntas: any[]=[];
-  url = 'http://localhost:4000/images/';
+  url = environment.serverImages;
   
   constructor(private aRoute: ActivatedRoute, private serQuizz: QuizzService) { 
     this.id = this.aRoute.snapshot.paramMap.get('id');
@@ -28,14 +29,14 @@ export class ViewQuizzComponent implements OnInit {
     if (this.id != null) {
       this.serQuizz.getCuestionario(parseInt(this.id)).subscribe(
         resp => {
-          const { cuestionarioId, titulo, descripcion, 
-            codigo, fecha_disp, num_preguntas, preguntas} = resp;
-          this.titulo = titulo;
-          this.descripcion = descripcion;
-          this.codigo = codigo;
-          this.fecha_disp = fecha_disp;
-          this.num_preguntas = num_preguntas;
-          this.preguntas = preguntas;
+          /* const { titulo, descripcion, 
+            codigo, fecha_disp, num_preguntas, preguntas} = resp; */
+          this.titulo = resp.titulo;
+          this.descripcion = resp.descripcion;
+          this.codigo = resp.codigo;
+          this.fecha_disp = resp.fecha_disp;
+          this.num_preguntas = resp.num_preguntas;
+          this.preguntas = resp.preguntas;
         }
       );
     }

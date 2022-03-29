@@ -1,0 +1,55 @@
+<div class="container">
+  <ion-item lines="none">
+    <ion-label>Cuestionario</ion-label>
+    <ion-select interface="alert" placeholder="Escoja uno" cancelText="Cancelar" okText="Aceptar" (ionChange)="cambiarQuizz($event)">
+      <ion-select-option [value]="item.cuestionarioId" *ngFor="let item of cuestionarios">{{item.titulo}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <div class="">
+    <div class="col-lg-10 offset-lg-1">
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <div class="text-center">
+            <strong class="text-dark titulo">Resultados del Cuestionario</strong>
+          </div>
+        </div>
+      </div>
+  
+      <div class="table-responsive">
+        <table class="table table-striped" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+          <thead>
+            <tr class="table-dark">
+              <th scope="col" class="text-center">#</th>
+              <th scope="col" class="text-center">Nombre</th>
+              <th scope="col" class="text-center">Usuario</th>
+              <th scope="col" class="text-center">Aciertos</th>
+              <th scope="col" class="text-center">Uso del Comodín</th>
+              <th scope="col" class="text-center">Calificación</th>
+              <th scope="col" class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of estudiantes; index as i">
+              <th scope="row" class="text-end">{{i+1}}</th>
+              <td>{{item.jugador.nombre}} {{item.jugador.apellido}}</td>
+              <td class="text-center">{{item.jugador.player_name}}</td>
+              <td class="text-center">{{item.aciertos}}</td>
+              <td class="text-center">
+                <span *ngIf="item.comodin == true"><ion-badge color="lime">SÍ</ion-badge></span>
+                <span *ngIf="item.comodin == false"><ion-badge color="sun">NO</ion-badge></span>
+              </td>
+              <td class="text-center">{{item.calificacion | number : '1.2-2'}}</td>
+              <td class="text-center">
+                <div class="actions">
+                  <ion-icon style="font-size: 20px;" name="eye" color="medium"
+                  [routerLink]="['/admin/reports/result', item.quizzPlayerId]"></ion-icon>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

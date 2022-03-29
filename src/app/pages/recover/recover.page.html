@@ -1,0 +1,68 @@
+<ion-content [fullscreen]="true">
+  <ion-fab vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button size="small" color="ocean" routerLink="/login">
+      <ion-icon size="large" name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-lg="4" size-md="6" size-sm="12">
+        <div class="login-container">
+          <h3 class="title ion-text-center">
+            <strong>Recuperar contraseña</strong>
+          </h3>
+          <ion-row class="ion-text-center ion-padding-start ion-padding-end ion-justify-content-center">
+            <p>Para realizar el cambio de su contraseña ingrese su correo electrónico y complete el código reCAPTCHA.
+              Recibirá un código para cambiar su contraseña.
+            </p>
+          </ion-row>
+        
+          <form [formGroup]="loginForm" class="form-lg" (ngSubmit)="ingresar()">
+            <!-- <div class="ion-margin-bottom" style="width: 100%;">
+              <ion-label class="ion-text-center">
+                <ion-icon class="open" name="lock-open" color="primary"></ion-icon>
+              </ion-label>
+            </div> -->
+
+            <div class="ion-margin-bottom" style="width: 100%;">
+              <ion-item lines="none">
+                <ion-input type="mail" placeholder="Correo electrónico" formControlName="correo">
+                </ion-input>
+              </ion-item>
+              <div class="text-danger text-start">
+                <small *ngIf="loginForm.get('correo')?.hasError('required') && loginForm.get('correo').touched">
+                  <p class="error"> *Por favor ingrese su correo</p>
+                </small>
+                <small *ngIf="loginForm.get('correo')?.hasError('email') || loginForm.get('correo')?.hasError('pattern')">
+                  <p class="error">* No parece un correo valido</p>
+                </small>
+              </div>
+            </div>
+            
+
+            <div class="ion-margin-bottom" style="width: 100%;">
+              <div style="transform: scale(1.08); width: 100%; display: flex; justify-content: center;">
+                <re-captcha (resolved)="captchaResolved($event)" [siteKey]="sitekey" style="position: relative;
+                box-shadow: none !important;"></re-captcha>
+              </div>
+              <div class="text-danger text-start">
+                <small *ngIf="loginForm.get('clave')?.hasError('required') && loginForm.get('clave').touched">
+                  <p class="error">* Por favor ingrese su contraseña</p>
+                </small>
+              </div>
+            </div>
+            
+            <ion-button type="submit" class="btn-form" color="success" [disabled]="!loginForm.valid">Solicitar Código
+            </ion-button>
+          </form>
+
+          <div class="ion-margin-top ion-text-center">
+            <p><strong>¿Tiene un código?</strong> ingréselo <span class="span"><a
+                  routerLink="/confirm-recover">aquí</a></span></p>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

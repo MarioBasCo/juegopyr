@@ -29,4 +29,14 @@ export class AnswerPlayerService {
     const URL = this.path_base + "respuestasjugador/" + quizzPlayerId;
     return this.http.get<any>(URL);
   }
+
+  createComodin(data: any){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json; charset=utf-8'
+      })
+    };
+    const URL = this.path_base + "respuestasjugador/comodin";
+    return this.http.post<any>(URL, data, httpOptions);
+  }
 }

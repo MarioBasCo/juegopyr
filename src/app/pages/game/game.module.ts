@@ -1,3 +1,6 @@
+import { FooterGameModule } from './../../components/footer-game/footer-game.module';
+import { HeaderGameModule } from './../../components/header-game/header-game.module';
+import { FooterModule } from './../../components/footer/footer.module';
 import { ComodinComponent } from './../../modals/comodin/comodin.component';
 import { CongratulationsComponent } from './../../modals/congratulations/congratulations.component';
 import { NgModule } from '@angular/core';
@@ -16,6 +19,8 @@ import { GamePage } from './game.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
+    HeaderGameModule,
+    FooterGameModule,
     GamePageRoutingModule
   ],
   declarations: [GamePage, CongratulationsComponent, ComodinComponent]

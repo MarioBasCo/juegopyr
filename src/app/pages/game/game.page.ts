@@ -1,9 +1,8 @@
-import { ComodinComponent } from './../../modals/comodin/comodin.component';
-import { CongratulationsComponent } from './../../modals/congratulations/congratulations.component';
+import { environment } from './../../../environments/environment.prod';
+import { Router } from '@angular/router';
 import { AnswerPlayerService } from './../../services/answer-player.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LstorageService } from './../../services/lstorage.service';
-import { ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -15,24 +14,21 @@ export class GamePage implements OnInit {
   listpreguntas: any [] = [];
   indiceActual: number = 0;
   formPreg: FormGroup;
-  player_name: string = '';
   respUser: any [] = [];
   valor: number = 0;
   txtbtn: string = 'SIGUIENTE';
-  url = 'http://localhost:4000/images/';
+  url = environment.serverImages;
 
-  constructor(
-    private modalCtrl: ModalController, 
+  constructor( 
     private serStorage: LstorageService, 
     private serResp: AnswerPlayerService,
+    private router: Router,
     private fb: FormBuilder) { 
       this.buildForm();
   }
 
   ngOnInit() {
     const  { preguntas } = this.serStorage.get('quizz');
-    const { player_name } = this.serStorage.get('estudiante');
-    this.player_name = player_name
     this.listpreguntas = preguntas;
     this.indiceActual = 0;
     this.formPreg.patchValue({
@@ -72,13 +68,6 @@ export class GamePage implements OnInit {
     //this.formPreg.get('respuestaId').patchValue(valor);
   }
 
-  async openModalRespuesta() {
-    /* const modal = await this.modalCtrl.create({
-      component: ,
-      cssClass: 'my-modal-class'
-    });
-    return await modal.present(); */
-  }
 
   nextPregunta(preguntaId: number){
     //let copyList = this.listpreguntas.pop();
@@ -119,12 +108,14 @@ export class GamePage implements OnInit {
       this.serResp.createAnswers(data).subscribe(resp => {
         if(resp.status == true){
           let quizzPlayerId = resp.data.quizzPlayerId;
+          this.serStorage.set('quizzPlayerId', quizzPlayerId);
           this.serResp.getFirstAnswer(quizzPlayerId).subscribe(data => {
             if(data.preguntas == data.aciertos){
-              //this.serStorage.clear();
-              this.openModalDetail();
+              this.router.navigate(['/congratulations']);
+              this.serStorage.set('calf', data);
             } else {
-              this.openModalComodin();
+              this.serStorage.set('calf', data);
+              this.router.navigate(['/comodin']);
             }
           });
         }
@@ -133,23 +124,4 @@ export class GamePage implements OnInit {
     }
   }
 
-  async openModalDetail(){
-    const modal = await this.modalCtrl.create({
-      component: CongratulationsComponent,
-      backdropDismiss: true,
-      showBackdrop: true
-    });
-
-    await modal.present();
-  }
-
-  async openModalComodin(){
-    const modal = await this.modalCtrl.create({
-      component: ComodinComponent,
-      backdropDismiss: true,
-      showBackdrop: true
-    });
-
-    await modal.present();
-  }
 }

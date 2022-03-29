@@ -1,0 +1,78 @@
+<ion-content class="ion-padding">
+  <ion-fab vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button size="small" color="ocean" routerLink="/admin/reports">
+      <ion-icon size="large" name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="text-center">
+                <h5><strong>Datos del Cuestionario</strong></h5>
+                <hr>
+              </div>
+            </div>
+            <label><strong>Código: </strong>{{cuestionario?.codigo}}</label><br>
+            <label><strong>Título: </strong>{{cuestionario?.titulo}}</label><br>
+            <label><strong>Descripción: </strong>{{cuestionario?.descripcion}}</label><br>
+            <label><strong>Fecha Disponible: </strong>{{cuestionario?.fecha_disp | date: 'dd/MM/yyyy'}}</label><br>
+            <label><strong>Uso del Comodín: </strong>
+              <span *ngIf="!comodin">No</span>
+              <span *ngIf="comodin">Sí</span>
+            </label><br>
+            <label><strong>Aciertos: </strong>{{aciertos}}</label><br>
+            <label><strong>Calificación: </strong>{{calificacion | number : '1.2-2'}}</label>
+          </div>
+        </div>
+        
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="text-center">
+                <h5><strong>Datos del Estudiante</strong></h5>
+                <hr>
+              </div>
+            </div>
+            <label><strong>Nombres: </strong>{{estudiante?.nombre}}</label><br>
+            <label><strong>Apellidos: </strong>{{estudiante?.apellido}}</label><br>
+            <label><strong>Usuario: </strong>{{estudiante?.player_name}}</label><br>
+          </div>
+        </div>
+
+        <div class="card mb-3" *ngFor="let pre of preguntas; index as i">
+          <div class="card-body">
+            <div class="text-center">
+              <h5><strong>Pregunta {{i+1}}</strong></h5>
+              <hr>
+            </div>
+            <div class="imagen text-center" *ngIf="pre?.img != ''">
+              <ion-img [src]="url+pre?.img"> </ion-img>
+            </div>
+            <label><strong>Pregunta: </strong>{{pre?.titulo}}</label><br>
+            <div *ngFor="let resp of pre.respuestas">
+              <ion-item lines="full">
+                <span>
+                  <ng-container *ngIf="respuestasUser[i] == resp.respuestaId">
+                    <ion-icon name="ellipse" slot="start" class="ion-margin-end icon-resp" color="ocean"></ion-icon>
+                  </ng-container>
+                  <ng-container *ngIf="respuestasUser[i] != resp.respuestaId">
+                    <ion-icon name="ellipse" slot="start" class="ion-margin-end icon-resp" color="medium"></ion-icon>
+                  </ng-container>
+                </span>
+                <p class="ion-text-justify">{{resp.descripcion}}</p>
+              </ion-item>
+            </div>
+            <div class="text-center mt-3">
+              <ion-badge *ngIf="correctas[i].esCorrecta == true" color="lime">Correcta</ion-badge>
+              <ion-badge *ngIf="correctas[i].esCorrecta == false" color="rose">Incorrecta</ion-badge>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

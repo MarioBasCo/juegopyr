@@ -38,6 +38,16 @@ export class PlayerService {
     return this.http.post<any>(URL, data, httpOptions);
   }
 
+  updateEstudiante(jugadorId: number, data: any){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json; charset=utf-8'
+      })
+    };
+    const URL = this.path_base + "jugadores/" + jugadorId;
+    return this.http.patch<any>(URL, data, httpOptions);
+  }
+
   deletePlayer(id: number){
     const URL = this.path_base + "jugadores/"+id;
     return this.http.delete<any>(URL);

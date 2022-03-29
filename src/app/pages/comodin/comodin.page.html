@@ -1,0 +1,17 @@
+<app-header-game></app-header-game>
+<ion-content>
+  <div class="contenedor">
+    <img src="assets/img/think.png" class="smile ion-margin-bottom">
+    <h1 class="cal">{{data?.calificacion | number : '1.2-2'}}/10</h1>
+    <p>!!! No tuviste todos los aciertos ¡¡¡</p>
+    <h4>¿Deseas mejorar tú calificación?</h4>
+    <div class="ion-text-center ion-padding">
+      <ion-button color="ocean" fill="outline" class="btn-comodin" (click)="irAComodin()">Pregunta Comodín</ion-button>
+    </div>
+    <h4>ó</h4>
+    <div class="ion-text-center ion-padding">
+      <ion-button color="rose" fill="outline" class="btn-comodin" (click)="cerrar()">Mantener Puntaje</ion-button>
+    </div>
+  </div>
+</ion-content>
+<app-footer-game></app-footer-game>

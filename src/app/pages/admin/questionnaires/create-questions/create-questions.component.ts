@@ -177,7 +177,6 @@ export class CreateQuestionsComponent implements OnInit {
 
   error() {
     this.mostrarError = true;
-    // Mostramos por tres segundos el error
     setTimeout(() => {
       this.mostrarError = false
     }, 4500);

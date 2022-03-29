@@ -90,7 +90,16 @@ export class CreateStudentComponent implements OnInit {
   guardar() {
     const data = this.studentForm.value;
     if (this.id != null) {
-
+      this.serPlayer.updateEstudiante(parseInt(this.id), data).subscribe(
+        resp => {
+          if(resp.status == false){
+            this.showMessage(resp.message, 'danger');
+          } else {
+            this.showMessage(resp.message, 'success');
+            this.router.navigateByUrl('/admin/students')
+          }
+        }
+      );
     } else {
       this.serPlayer.createEstudiante(data).subscribe(
         resp => {

@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  webService: 'http://localhost:4000/api/'
+  webService: 'http://localhost:4000/api/',
+  serverImages: 'http://localhost:4000/images/',
+  recaptcha: {
+    siteKey: "6Ld9MtMbAAAAALygkWN2JPWCXxb-2SJ64BAbFEsr"
+  }
 };
 
 /*

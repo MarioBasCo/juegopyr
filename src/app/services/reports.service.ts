@@ -25,4 +25,14 @@ export class ReportsService {
     return this.http.get<any>(URL);
   }
 
+  getResultados(id: number){
+    const URL = this.path_base + "reportes/resultados/" + id;
+    return this.http.get<any>(URL);
+  }
+
+
+  getResultadoById(id: number){
+    const URL = this.path_base + "reportes/resultados/search/" + id;
+    return this.http.get<any>(URL);
+  }
 }

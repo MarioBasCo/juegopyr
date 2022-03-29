@@ -1,3 +1,6 @@
+import { ListResultComponent } from './list-result/list-result.component';
+import { ResultComponent } from './result/result.component';
+import { DataTablesModule } from 'angular-datatables';
 import { FooterModule } from './../../../components/footer/footer.module';
 import { HeaderModule } from './../../../components/header/header.module';
 import { NgModule } from '@angular/core';
@@ -17,8 +20,9 @@ import { ReportsPage } from './reports.page';
     IonicModule,
     HeaderModule,
     FooterModule,
+    DataTablesModule,
     ReportsPageRoutingModule
   ],
-  declarations: [ReportsPage]
+  declarations: [ReportsPage, ListResultComponent, ResultComponent]
 })
 export class ReportsPageModule {}

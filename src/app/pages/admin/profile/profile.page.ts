@@ -1,3 +1,4 @@
+import { LstorageService } from './../../../services/lstorage.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+  user: any;
 
-  constructor() { }
+  constructor(private serStorage: LstorageService) { }
 
   ngOnInit() {
+    this.user = this.serStorage.get('user');
   }
 
+  openEdit(){
+    
+  }
 }
