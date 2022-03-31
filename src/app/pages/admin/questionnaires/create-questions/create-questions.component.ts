@@ -1,4 +1,4 @@
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { QuizzService } from './../../../../services/quizz.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
@@ -24,7 +24,7 @@ export class CreateQuestionsComponent implements OnInit {
   descripcion: string = '';
   url = 'http://localhost:4000/images/';
 
-  constructor(private serQuizz: QuizzService, private fb: FormBuilder, private router: Router, private toast: ToastController) {
+  constructor(private serQuizz: QuizzService, private fb: FormBuilder, private alertCtrl: AlertController, private router: Router, private toast: ToastController) {
     this.buildForm();
   }
 
@@ -246,5 +246,34 @@ export class CreateQuestionsComponent implements OnInit {
       duration: 3000
     });
     toast.present();
+  }
+
+  async eliminar(item){
+    const alert = await this.alertCtrl.create({
+      header: '!Advertencia¡',
+      cssClass: 'app-alert',
+      message: `<ion-icon name="alert-circle-outline"></ion-icon><br> ¿Desea <strong>eliminar</strong> la pregunta seleccionada?`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+          }
+        }, {
+          text: 'Confirmar',
+          role: 'exit',
+          handler: () => {
+            this.serQuizz.deletePregunta(item.preguntaId).subscribe(resp => {
+              if(resp.status == true) {
+                this.showMessage(resp.message, 'success');
+                this.cargarPreguntas();
+              }
+            });
+          }
+        }
+      ]
+    });
+
+    alert.present();
   }
 }

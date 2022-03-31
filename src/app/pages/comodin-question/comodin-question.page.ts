@@ -83,9 +83,10 @@ export class ComodinQuestionPage implements OnInit {
     this.serResp.createComodin(data).subscribe(resp => {
       if(resp.status == true){
         let quizzPlayerId = resp.data.quizzPlayerId;
-        this.showMessage('Información guardada con éxito', 'success');
+        //this.showMessage('Información guardada con éxito', 'success');
         this.serStorage.set('quizzPlayerId', quizzPlayerId);
-        this.serResp.getFirstAnswer(quizzPlayerId).subscribe(data => {
+        this.serResp.calificacionComodin(quizzPlayerId).subscribe(data => {
+          console.log(data);
           this.serStorage.set('calf', data);
           this.router.navigate(['/comodin-result']);
         });

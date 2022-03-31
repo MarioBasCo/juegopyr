@@ -80,10 +80,11 @@ export class CreateQuizzComponent implements OnInit {
 
   siguiente() {
     if (this.id != null) {
+      console.log(new Date(this.fechaDispField?.value));
       const data = {
         titulo: this.tituloField?.value,
         descripcion: this.descripcionField?.value,
-        fecha_disp: this.fechaDispField?.value,
+        fecha_disp: moment(this.fechaDispField?.value).format('MM/DD/YYYY'),
         estado: 'A',
         accion: 'update'
       }

@@ -86,6 +86,11 @@ export class QuizzService {
     return this.http.get<any>(URL);
   }
 
+  deletePregunta(id: number){
+    const URL = this.url + "preguntas/" + id;
+    return this.http.delete<any>(URL);
+  }
+
   objectToFormData(obj: any, form?: any, namespace?: any) {
     let fd: any = form || new FormData();
     let formKey: any;

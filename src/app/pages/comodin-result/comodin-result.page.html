@@ -1,10 +1,27 @@
 <app-header-game></app-header-game>
 <ion-content>
   <div class="contenedor">
-    <img src="assets/img/smile.png" class="smile ion-margin-bottom">
-    <h1 class="cal">{{data.calificacion | number : '1.2-2'}}/10</h1>
-    <h4>🎉 Felicitaciones 🎉</h4>
-    <p>Sígue así</p>
+    <ng-container *ngIf="data.calificacion <= 6">
+      <img src="assets/img/sad.png" class="smile ion-margin-bottom">
+      <h1 class="cal">{{data.calificacion | number : '1.2-2'}}/10.00</h1>
+      <h4>📚 No te detengas 📚</h4>
+      <p>La próxima lo lograrás</p>
+    </ng-container>
+
+    <ng-container *ngIf="data.calificacion > 6 && data.calificacion < 9">
+      <img src="assets/img/smile.png" class="smile ion-margin-bottom">
+      <h1 class="cal">{{data.calificacion | number : '1.2-2'}}/10.00</h1>
+      <h4>🎉 Lograste una buena nota 🎉</h4>
+      <p>Muy Bien</p>
+    </ng-container>
+
+    <ng-container *ngIf="data.calificacion >= 9">
+      <img src="assets/img/smile.png" class="smile ion-margin-bottom">
+      <h1 class="cal">{{data.calificacion | number : '1.2-2'}}/10.00</h1>
+      <h4>🏆 Felicitaciones 🏆</h4>
+      <p>Sígue así</p>
+    </ng-container>
+    
     <div class="ion-text-center ion-padding">
       <ion-button color="danger" fill="outline" class="btn-cerrar" (click)="cerrar()">Cerrar</ion-button>
     </div>

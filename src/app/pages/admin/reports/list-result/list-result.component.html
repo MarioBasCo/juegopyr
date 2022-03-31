@@ -36,8 +36,8 @@
               <td class="text-center">{{item.jugador.player_name}}</td>
               <td class="text-center">{{item.aciertos}}</td>
               <td class="text-center">
-                <span *ngIf="item.comodin == true"><ion-badge color="lime">SÍ</ion-badge></span>
-                <span *ngIf="item.comodin == false"><ion-badge color="sun">NO</ion-badge></span>
+                <span *ngIf="item.comodin == true"><ion-badge color="success">SÍ</ion-badge></span>
+                <span *ngIf="item.comodin == false"><ion-badge color="warning">NO</ion-badge></span>
               </td>
               <td class="text-center">{{item.calificacion | number : '1.2-2'}}</td>
               <td class="text-center">

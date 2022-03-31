@@ -39,4 +39,9 @@ export class AnswerPlayerService {
     const URL = this.path_base + "respuestasjugador/comodin";
     return this.http.post<any>(URL, data, httpOptions);
   }
+
+  calificacionComodin(quizzPlayerId: number){
+    const URL = this.path_base + "respuestascomodin/"+quizzPlayerId;
+    return this.http.get<any>(URL);
+  }
 }

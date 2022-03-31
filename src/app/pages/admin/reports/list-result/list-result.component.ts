@@ -55,6 +55,7 @@ export class ListResultComponent implements OnInit {
     this.serReport.getResultados(this.idSelecccionado).subscribe(
       resp => {
         if(resp.status == true){
+          console.log(resp.data);
           this.estudiantes = resp.data;
           this.dtTrigger.next(); 
         }
