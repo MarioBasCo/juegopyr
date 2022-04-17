@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'juego',
+  appId: 'com.stip.quizz',
+  appName: 'QuizzFHR',
   webDir: 'www',
   bundledWebRuntime: false
 };

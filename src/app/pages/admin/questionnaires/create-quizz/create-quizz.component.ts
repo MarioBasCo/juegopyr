@@ -14,6 +14,7 @@ import * as moment from 'moment';
 export class CreateQuizzComponent implements OnInit {
   id: string | null;
   cuestionarioForm: FormGroup;
+  editMessage: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -56,6 +57,7 @@ export class CreateQuizzComponent implements OnInit {
 
   esEditar(){
     if (this.id != null) {
+      this.editMessage = 'Solo Puede actualizar los datos del cuestionario más no su contenido';
       this.serQuizz.getCuestionario(parseInt(this.id)).subscribe(
         (resp: any) => {
           const {titulo, descripcion, fecha_disp } = resp;
@@ -92,7 +94,8 @@ export class CreateQuizzComponent implements OnInit {
         resp => {
           if(resp.status == true){
             this.showMessage('Cuestinario Actualizado', 'success');
-            this.router.navigate(['/admin/questionnaires/questions']);
+            this.router.navigate(['/admin/questionnaires']);
+            //this.router.navigate(['/admin/questionnaires/questions']);
           }
         }
       );

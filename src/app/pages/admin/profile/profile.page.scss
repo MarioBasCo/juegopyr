@@ -1,5 +1,5 @@
 .container {
-    min-height: 100vh;
+    min-height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -42,6 +42,8 @@
 
 .info {
     margin-bottom: 14px;
+    width: 100%;
+    text-align: center;
     ion-icon {
         margin-right: 10px;
         font-size: 1.4em;

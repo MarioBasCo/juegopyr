@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { environment } from './../../../environments/environment';
 import { ToastController } from '@ionic/angular';
 import { LstorageService } from './../../services/lstorage.service';
@@ -18,11 +19,12 @@ export class RecoverPage implements OnInit {
     private fb: FormBuilder, 
     private router: Router, 
     private serStorage: LstorageService,
+    private serUser: AuthService,
     private toast: ToastController
     ) { 
     this.loginForm = this.fb.group({
       correo: ['', [Validators.required, Validators.email, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      clave: ['', Validators.required],
+      codigo: [false, [Validators.required, Validators.requiredTrue]],
     });
   }
 
@@ -36,19 +38,33 @@ export class RecoverPage implements OnInit {
   captchaResolved(event){
     console.log("Captcha resolved", event);
     this.isCaptchaValid = true;
+    this.loginForm.get('codigo').setValue(true);
   }
 
   ingresar(){
     //console.log(this.loginForm);
-    const data = this.loginForm.value;
-    console.log(data);
+    
+    if(this.loginForm.valid){
+      const data = this.loginForm.value;
+      this.serUser.forgotPassword(data).subscribe(
+        resp => {
+          if(resp.status == false){
+            this.showMessage(resp.message, 'danger');
+          } else {
+            this.showMessage(resp.message, 'success');
+          }
+        }
+      );
+    } else {
+      return;
+    }
   }
 
-  async showMessage(message: string){
+  async showMessage(message: string, color: string){
     const toast = await this.toast.create({
       message,
-      color: 'danger',
-      duration: 2000
+      color,
+      duration: 3000
     });
     toast.present();
   }

@@ -15,6 +15,7 @@ export class DashboardPage implements OnInit {
   cuestionarios: number = 0;
   cuestionarios_resueltos: number = 0;
   grupos: number = 0;
+  porcentajeComodin: number = 0;
   estudiantes: number = 0;
   listPromedios: any[] = [];
   listPorcentajes: any[] = [];
@@ -41,6 +42,7 @@ export class DashboardPage implements OnInit {
         this.cuestionarios = resp.cuestionarios;
         this.grupos = resp.grupos.total_grupos;
         this.estudiantes = resp.grupos.total_estudiantes;
+        this.porcentajeComodin = resp.porcentajeComodin;
         this.cuestionarios_resueltos = resp.cuestionarios_resueltos;
       }
     );

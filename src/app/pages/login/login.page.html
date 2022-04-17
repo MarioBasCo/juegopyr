@@ -28,18 +28,21 @@
                 <small *ngIf="loginForm.get('correo')?.hasError('required') && loginForm.get('correo').touched">
                   <p class="error"> *Por favor ingrese su correo</p>
                 </small>
-                <small *ngIf="loginForm.get('correo')?.hasError('email') || loginForm.get('correo')?.hasError('pattern')">
+                <small
+                  *ngIf="loginForm.get('correo')?.hasError('email') || loginForm.get('correo')?.hasError('pattern')">
                   <p class="error">* No parece un correo valido</p>
                 </small>
               </div>
             </div>
-            
+
 
             <div class="ion-margin-bottom" style="width: 100%;">
               <ion-item lines="none">
                 <!-- <ion-label position="floating">Contraseña:</ion-label> -->
-                <ion-input type="password" placeholder="Contraseña" formControlName="clave">
+                <ion-input [type]="showPassword ? 'text': 'password'" placeholder="Contraseña" formControlName="clave">
                 </ion-input>
+                <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()">
+                </ion-icon>
               </ion-item>
               <div class="text-danger text-start">
                 <small *ngIf="loginForm.get('clave')?.hasError('required') && loginForm.get('clave').touched">
@@ -47,7 +50,7 @@
                 </small>
               </div>
             </div>
-            
+
             <ion-button type="submit" class="btn-form" color="success" [disabled]="!loginForm.valid">Ingresar
             </ion-button>
           </form>

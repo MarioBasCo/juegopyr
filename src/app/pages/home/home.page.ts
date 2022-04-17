@@ -38,7 +38,7 @@ export class HomePage implements OnInit {
     const toast = await this.toast.create({
       message,
       color,
-      duration: 3000
+      duration: 3500
     });
     toast.present();
   }

@@ -1,3 +1,4 @@
+import { ExitGuard } from './../../../guards/exit.guard';
 import { ViewQuizzComponent } from './view-quizz/view-quizz.component';
 import { CreateQuestionsComponent } from './create-questions/create-questions.component';
 import { CreateQuizzComponent } from './create-quizz/create-quizz.component';
@@ -27,7 +28,8 @@ const routes: Routes = [
         path: 'quizz/:id', component: CreateQuizzComponent
       },
       {
-        path: 'questions', component: CreateQuestionsComponent
+        path: 'questions', component: CreateQuestionsComponent,
+        canDeactivate: [ExitGuard]
       }
     ]
   },

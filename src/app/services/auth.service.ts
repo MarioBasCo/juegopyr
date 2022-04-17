@@ -30,4 +30,24 @@ export class AuthService {
     };
     return this.http.post<any>(URL, data, httpOptions);
   }
+
+  forgotPassword(data: any){
+    const URL = this.url +  "usuarios/forgot-password";
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':'application/json; charset=utf-8' 
+      })
+    };
+    return this.http.post<any>(URL, data, httpOptions);
+  }
+
+  resetPassword(data: any){
+    const URL = this.url +  "usuarios/reset-password";
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':'application/json; charset=utf-8' 
+      })
+    };
+    return this.http.post<any>(URL, data, httpOptions);
+  }
 }

@@ -12,6 +12,8 @@ import { ToastController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
+  showPassword = false;
+  passwordToggleIcon = 'eye-off-outline';
 
   constructor(
     private fb: FormBuilder, 
@@ -47,6 +49,15 @@ export class LoginPage implements OnInit {
     );
   }
 
+  togglePassword(){
+    this.showPassword = !this.showPassword;
+    if(this.passwordToggleIcon == 'eye-off-outline'){
+      this.passwordToggleIcon = 'eye-outline';
+    }else{
+      this.passwordToggleIcon = 'eye-off-outline';
+    }
+  }
+  
   async showMessage(message: string){
     const toast = await this.toast.create({
       message,

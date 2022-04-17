@@ -1,3 +1,4 @@
+import { OnExit } from './../../../../guards/exit.guard';
 import { ToastController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { QuizzService } from './../../../../services/quizz.service';
@@ -12,7 +13,7 @@ import { nanoid } from 'nanoid';
   styleUrls: ['./create-questions.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class CreateQuestionsComponent implements OnInit {
+export class CreateQuestionsComponent implements OnInit, OnExit {
   agregarPregunta: FormGroup;
   listPreguntas: any [] = [];
   @ViewChild('myInput') myInputVariable: ElementRef;
@@ -33,6 +34,14 @@ export class CreateQuestionsComponent implements OnInit {
     /* if(!this.cuestionarioId){
       this.router.navigateByUrl('admin/questionnaires');
     } */
+  }
+
+  async onExit() {
+    if (this.agregarPregunta.dirty) {
+      return this.showAlert();
+    } else {
+      return true;
+    }
   }
 
   obtenerDatosIniciales() {
@@ -275,5 +284,36 @@ export class CreateQuestionsComponent implements OnInit {
     });
 
     alert.present();
+  }
+
+  async showAlert() {
+    const alert = await this.alertCtrl.create({
+      header: '!Advertencia¡',
+      cssClass: 'app-alert',
+      message: `¿Esta seguro de <strong>salir sin guardar</strong> los datos, el cuestionario no se creará?`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            //return false;
+          }
+        }, {
+          text: 'Confirmar',
+          role: 'exit',
+          handler: () => {
+            //this.router.navigate(['admin/students']);
+            //return true;
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    if (role) {
+      return role == 'cancel' ? false : true;
+    }
   }
 }

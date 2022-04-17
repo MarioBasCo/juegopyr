@@ -1,9 +1,80 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>confirm-recover</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-fab vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button size="small" color="ocean" routerLink="/recover">
+      <ion-icon size="large" name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
-<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-lg="4" size-md="6" size-sm="12">
+        <div class="login-container">
 
+          <h1 class="title">Cambio de Contraseña</h1>
+          <form [formGroup]="loginForm" class="form-lg" (ngSubmit)="ingresar()">
+            <div class="ion-margin-bottom" style="width: 100%;">
+              <ion-item lines="none">
+                <ion-input type="mail" placeholder="Correo electrónico" formControlName="correo">
+                </ion-input>
+              </ion-item>
+              <div class="text-danger text-start">
+                <small *ngIf="loginForm.get('correo')?.hasError('required') && loginForm.get('correo').touched">
+                  <p class="error"> *Por favor ingrese su correo</p>
+                </small>
+                <small
+                  *ngIf="loginForm.get('correo')?.hasError('email') || loginForm.get('correo')?.hasError('pattern')">
+                  <p class="error">* No parece un correo valido</p>
+                </small>
+              </div>
+            </div>
+
+            <div class="ion-margin-bottom" style="width: 100%;">
+              <ion-item lines="none">
+                <ion-input type="text" placeholder="Código de Verificación" formControlName="codigo">
+                </ion-input>
+              </ion-item>
+              <div class="text-danger text-start">
+                <small *ngIf="loginForm.get('codigo')?.hasError('required') && loginForm.get('codigo').touched">
+                  <p class="error"> *Por favor ingrese su correo</p>
+                </small>
+                <!-- <small
+                  *ngIf="loginForm.get('correo')?.hasError('email') || loginForm.get('correo')?.hasError('pattern')">
+                  <p class="error">* No parece un correo valido</p>
+                </small> -->
+              </div>
+            </div>
+
+            <div class="ion-margin-bottom" style="width: 100%;">
+              <ion-item lines="none">
+                <ion-input [type]="showPassword ? 'text': 'password'" placeholder="Nueva Contraseña" formControlName="clave">
+                </ion-input>
+                <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()"></ion-icon>
+              </ion-item>
+              <div class="text-danger text-start">
+                <small *ngIf="loginForm.get('clave')?.hasError('required') && loginForm.get('clave').touched">
+                  <p class="error">* Por favor ingrese su contraseña</p>
+                </small>
+              </div>
+            </div>
+
+            <!-- <div class="ion-margin-bottom" style="width: 100%;">
+              <ion-item lines="none">
+                <ion-input [type]="showPassword ? 'text': 'password'" placeholder="Confirme su Contraseña" formControlName="clave">
+                </ion-input>
+                <ion-icon slot="end" [name]="passwordToggleIcon" (click)="togglePassword()"></ion-icon>
+              </ion-item>
+              <div class="text-danger text-start">
+                <small *ngIf="loginForm.get('clave')?.hasError('required') && loginForm.get('clave').touched">
+                  <p class="error">* Por favor ingrese su contraseña</p>
+                </small>
+              </div>
+            </div> -->
+
+            <ion-button type="submit" class="btn-form" color="success" [disabled]="!loginForm.valid">Confirmar
+            </ion-button>
+          </form>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -42,6 +42,9 @@
                 </div>
               </div>
               
+              <div>
+                <ion-note *ngIf="editMessage.length > 0" color="warning"><ion-icon name="warning-outline" class="ion-margin-end"></ion-icon>{{editMessage}}</ion-note>
+              </div>
               <div class="row mt-3">
                 <div class="col-lg-6">
                   <ion-button (click)="cancelar()" expand="block" color="danger" fill="outline">
@@ -51,8 +54,12 @@
       
                 <div class="col-lg-6">
                   <ion-button type="submit" (click)="siguiente()" expand="block" color="success"
-                    [disabled]="!cuestionarioForm.valid">
+                    [disabled]="!cuestionarioForm.valid" *ngIf="editMessage.length == 0">
                     SIGUIENTE
+                  </ion-button>
+                  <ion-button type="submit" (click)="siguiente()" expand="block" color="success"
+                    [disabled]="!cuestionarioForm.valid" *ngIf="editMessage.length > 0">
+                    GUARDAR
                   </ion-button>
                 </div>
               </div>
