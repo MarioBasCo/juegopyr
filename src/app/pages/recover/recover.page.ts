@@ -13,32 +13,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecoverPage implements OnInit {
   loginForm: FormGroup;
-  isCaptchaValid: boolean = false;
 
   constructor(
     private fb: FormBuilder, 
-    private router: Router, 
-    private serStorage: LstorageService,
     private serUser: AuthService,
     private toast: ToastController
     ) { 
     this.loginForm = this.fb.group({
       correo: ['', [Validators.required, Validators.email, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      codigo: [false, [Validators.required, Validators.requiredTrue]],
     });
   }
 
   ngOnInit() {
-  }
-
-  get sitekey(){
-    return environment.recaptcha.siteKey;
-  }
-
-  captchaResolved(event){
-    console.log("Captcha resolved", event);
-    this.isCaptchaValid = true;
-    this.loginForm.get('codigo').setValue(true);
   }
 
   ingresar(){

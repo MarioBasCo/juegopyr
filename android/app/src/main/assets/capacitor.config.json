@@ -1,0 +1,6 @@
+{
+	"appId": "com.stip.quizz",
+	"appName": "QuizzFHR",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

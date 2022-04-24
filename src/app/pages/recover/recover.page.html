@@ -40,19 +40,6 @@
               </div>
             </div>
             
-
-            <div class="ion-margin-bottom" style="width: 100%;">
-              <div style="transform: scale(1.08); width: 100%; display: flex; justify-content: center;">
-                <re-captcha (resolved)="captchaResolved($event)" [siteKey]="sitekey" style="position: relative;
-                box-shadow: none !important;"></re-captcha>
-              </div>
-              <!-- <div class="text-danger text-start">
-                <small *ngIf="loginForm.get('clave')?.hasError('required') && loginForm.get('codigo').touched">
-                  <p class="error">* Por favor ingrese su contraseña</p>
-                </small>
-              </div> -->
-            </div>
-            
             <ion-button type="submit" class="btn-form" color="success" [disabled]="!loginForm.valid">Solicitar Código
             </ion-button>
           </form>

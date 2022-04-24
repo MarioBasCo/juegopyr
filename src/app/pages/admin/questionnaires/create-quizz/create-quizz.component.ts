@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { ToastController } from '@ionic/angular';
 import { LstorageService } from './../../../../services/lstorage.service';
 import { QuizzService } from './../../../../services/quizz.service';
@@ -22,6 +23,7 @@ export class CreateQuizzComponent implements OnInit {
     private serStorage: LstorageService,
     private toast: ToastController,
     private router: Router,
+    private datePipe: DatePipe,
     private aRoute: ActivatedRoute) {
     this.buildForm();
     this.id = this.aRoute.snapshot.paramMap.get('id');
@@ -32,15 +34,18 @@ export class CreateQuizzComponent implements OnInit {
   }
 
   buildForm(){
-    let hoy = new Date();
-      hoy.setDate(hoy.getDate()+3);
-      let fstr = moment(hoy).format('MM/DD/YYYY');
-      let hola = new Date(fstr).toISOString().slice(0, 10).replace('T', ' ');
-      this.cuestionarioForm = this.fb.group({
-        titulo: ['', Validators.required],
-        descripcion: ['', Validators.required],
-        fecha_disp: [hola, Validators.required]
-      });
+    const fecha = new Date(new Date().toLocaleString('en-US', {
+      timeZone: 'America/Guayaquil',
+    }));
+    
+    fecha.setDate(fecha.getDate()+3);
+    let fstr = this.datePipe.transform(fecha, 'yyyy-MM-dd');
+    
+    this.cuestionarioForm = this.fb.group({
+      titulo: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      fecha_disp: [fstr, Validators.required]
+    });
   }
 
   get tituloField() {
@@ -61,14 +66,12 @@ export class CreateQuizzComponent implements OnInit {
       this.serQuizz.getCuestionario(parseInt(this.id)).subscribe(
         (resp: any) => {
           const {titulo, descripcion, fecha_disp } = resp;
-          console.log(fecha_disp);
-          let fstr = moment(fecha_disp).format('MM/DD/YYYY');
-          let fdisp = new Date(fstr).toISOString().slice(0, 10).replace('T', ' ');
+          let fstr = this.datePipe.transform(fecha_disp, 'yyyy-MM-dd');
           this.cuestionarioForm.patchValue(
             {
               titulo,
               descripcion,
-              fecha_disp: fdisp,
+              fecha_disp: fstr,
             }
           );
         }
@@ -80,13 +83,17 @@ export class CreateQuizzComponent implements OnInit {
     this.router.navigate(['/admin/questionnaires']);
   }
 
+  cambiarFecha(){
+    console.log(this.formatearFecha(this.fechaDispField?.value));
+  }
+
   siguiente() {
     if (this.id != null) {
       console.log(new Date(this.fechaDispField?.value));
       const data = {
         titulo: this.tituloField?.value,
         descripcion: this.descripcionField?.value,
-        fecha_disp: moment(this.fechaDispField?.value).format('MM/DD/YYYY'),
+        fecha_disp: this.formatearFecha(this.fechaDispField?.value),
         estado: 'A',
         accion: 'update'
       }
@@ -105,7 +112,7 @@ export class CreateQuizzComponent implements OnInit {
         const data = {
           userId,
           titulo: this.tituloField?.value,
-          fecha_disp: this.fechaDispField?.value,
+          fecha_disp: this.formatearFecha(this.fechaDispField?.value),
           descripcion: this.descripcionField?.value
         }
       
@@ -119,6 +126,23 @@ export class CreateQuizzComponent implements OnInit {
         this.router.navigate(['/admin/questionnaires/questions']);
       } 
     }
+  }
+
+  formatearFecha(fdisp){
+    let arr = fdisp.split("-");
+    
+    let fecha_disp = new Date(new Date().toLocaleString('en-US', {
+      timeZone: 'America/Guayaquil',
+    }));
+    fecha_disp.setFullYear(arr[0]);
+    fecha_disp.setMonth(arr[1]-1);
+    fecha_disp.setDate(arr[2]);
+    fecha_disp.setHours(0);
+    fecha_disp.setMinutes(0);
+    fecha_disp.setSeconds(0);
+    
+    console.log(this.datePipe.transform(fecha_disp, 'yyyy-MM-dd HH:mm:ss'))
+    return this.datePipe.transform(fecha_disp, 'yyyy-MM-dd HH:mm:ss');
   }
 
   async showMessage(message: string, color: string) {

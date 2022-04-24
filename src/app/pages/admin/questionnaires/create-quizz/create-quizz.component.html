@@ -34,7 +34,7 @@
 
               <div class="form-group mb-3">
                 <label for="fecha_disp" class="form-label">Fecha Limite de Resolución</label>
-                <input type="date" formControlName="fecha_disp" max="9999-12-31" class="form-control" id="fecha_disp">
+                <input type="date" formControlName="fecha_disp" max="9999-12-31" (change)="cambiarFecha()" class="form-control" id="fecha_disp">
                 <div class="text-danger" *ngIf="fechaDispField?.hasError('required') && fechaDispField?.touched">
                   <span>
                     * El campo de fecha <strong>es requerido</strong>

@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
           handler: () => {
             console.log('Confirm Okay');
             this.serStorage.clear();
-            this.router.navigate(['/login']);
+            this.router.navigate(['/home']);
           }
         }
       ]
